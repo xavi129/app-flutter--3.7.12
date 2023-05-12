@@ -1,4 +1,4 @@
-package com.rover.curiosity;
+package com.SQ.Entregas;
 
 import androidx.annotation.NonNull;
 

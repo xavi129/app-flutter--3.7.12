@@ -1,4 +1,4 @@
-package com.rover.curiosity;
+package com.SQ.Entregas;
 
 import io.flutter.app.FlutterApplication;
 import io.flutter.plugin.common.PluginRegistry;
