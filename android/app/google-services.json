@@ -1,41 +1,57 @@
 {
   "project_info": {
-    "project_number": "261720150898",
-    "project_id": "curiosity-9d538",
-    "storage_bucket": "curiosity-9d538.appspot.com"
+    "project_number": "713717712583",
+    "project_id": "sq-entregas-dd93b",
+    "storage_bucket": "sq-entregas-dd93b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:261720150898:android:b3858ebaac877c232e43eb",
+        "mobilesdk_app_id": "1:713717712583:android:4cd4be1c887d95111fe0e2",
         "android_client_info": {
-          "package_name": "com.rover.curiosity"
+          "package_name": "com.SQ.Entregas"
         }
       },
       "oauth_client": [
         {
-          "client_id": "261720150898-1duj5o5v8stk2tn3gqjfjgd0ufl5v4p6.apps.googleusercontent.com",
+          "client_id": "713717712583-d8cl4l1rjlhequm5nvl2hiq1be90l288.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.rover.curiosity",
-            "certificate_hash": "2586320c84e22a5fb7f60bcb8ea71945b27b7b3d"
+            "package_name": "com.SQ.Entregas",
+            "certificate_hash": "fcde3a6389918676f3d2247d9c2dd4553aad465b"
           }
         },
         {
-          "client_id": "261720150898-rvoc11la9rmdc70nujlc625fat3i6al4.apps.googleusercontent.com",
+          "client_id": "713717712583-i5lc9f26fokk1km4tqmenoh3kkvpgqt4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.SQ.Entregas",
+            "certificate_hash": "8e5135ece52ec17739de4df4ec5f3baaafa864d4"
+          }
+        },
+        {
+          "client_id": "713717712583-n1r7deu1uf68le36omlfgubauvud3ke4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.SQ.Entregas",
+            "certificate_hash": "879662e56224bca63a36bbec17d6a81a0ee735ee"
+          }
+        },
+        {
+          "client_id": "713717712583-ldvfas733encsfme2sats9lfvug2pd47.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBME0jTk8dROycglOLKzzkxzYQmctQIV6k"
+          "current_key": "AIzaSyD5qG-oAFtThpElwGrYPGM4wQSSsVQ3dBU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "261720150898-rvoc11la9rmdc70nujlc625fat3i6al4.apps.googleusercontent.com",
+              "client_id": "713717712583-ldvfas733encsfme2sats9lfvug2pd47.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
