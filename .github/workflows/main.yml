@@ -18,3 +18,10 @@ jobs:
 
     - run: flutter pub get
     - run: flutter build ios --release --no-codesign
+    
+    - name: collect ipa artifacts
+        uses: actions/upload-artifact@v2
+        with:
+         name: release-ipa
+         # Path to the release files
+         path: build/ios/ipa/*.ipa
