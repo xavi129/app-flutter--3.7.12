@@ -2,6 +2,7 @@ const int COMPRA_PRESUPUESTANDO = 1;
 const int COMPRA_REFERENCIADA = 2;
 const int COMPRA_COMPRADA = 3;
 const int COMPRA_DESPACHADA = 4;
+const int COMPRA_CAMINO = 5;
 const int COMPRA_CANCELADA = 100;
 const int COMPRA_ENTREGADA = 200;
 

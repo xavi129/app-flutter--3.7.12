@@ -92,11 +92,6 @@ class ChatCajeroWidget extends StatelessWidget {
           Text(chatCompraModel.mensaje,
               style: TextStyle(color: Colors.black),
               textAlign: TextAlign.justify),
-          Divider(),
-          Text(
-              'Costo ${(double.parse(chatCompraModel.valor)).toStringAsFixed(2)} USD incluye envío',
-              style: TextStyle(color: Colors.black),
-              textAlign: TextAlign.left),
         ],
       );
     }
@@ -134,7 +129,7 @@ class ChatCajeroWidget extends StatelessWidget {
               textAlign: TextAlign.justify),
           Divider(),
           Text(
-              'Costo: ${double.parse(chatCompraModel.valor.toString()).toStringAsFixed(2)} USD',
+              'Costo: ${double.parse(chatCompraModel.valor.toString()).toStringAsFixed(2)} Pesos',
               style: TextStyle(color: Colors.white, fontSize: 20.0),
               textAlign: TextAlign.right)
         ],
@@ -153,7 +148,7 @@ class ChatCajeroWidget extends StatelessWidget {
               textAlign: TextAlign.justify),
           Divider(),
           Text(
-              'Costo ${(double.parse(chatCompraModel.valor)).toStringAsFixed(2)} USD incluye envío',
+              'Costo ${(double.parse(chatCompraModel.valor)).toStringAsFixed(2)} Pesos incluye envío',
               style: TextStyle(color: Colors.white, fontSize: 20.0),
               textAlign: TextAlign.right),
         ],

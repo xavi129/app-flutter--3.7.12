@@ -116,7 +116,7 @@ class _CarritoPageState extends State<CarritoPage> {
     );
   }
 
-  cambiarDireccion({bool mostrarResumen = true}) async {
+  cambiarDireccion({bool mostrarResumen: true}) async {
     if (direccionSeleccionada.idDireccion <= 0) return;
 
     _update('Consultando costo');
@@ -277,7 +277,7 @@ class _CarritoPageState extends State<CarritoPage> {
         builder: (BuildContext context, AsyncSnapshot<double> snapshot) {
           if (snapshot.hasData) {
             return btn.booton(
-                'Costo total ${snapshot.data.toStringAsFixed(2)} USD incluye envío',
+                'Costo total ${snapshot.data.toStringAsFixed(2)} Pesos incluye envío',
                 _comprar);
           } else {
             return btn.booton(

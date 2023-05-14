@@ -13,6 +13,7 @@ import '../pages/delivery/compras_despacho_page.dart';
 import '../providers/cliente_provider.dart';
 import '../sistema.dart';
 import '../utils/permisos.dart' as permisos;
+import 'personalizacion.dart' as pr;
 
 final _clienteProvider = ClienteProvider();
 
@@ -144,7 +145,7 @@ ingresar(BuildContext context, ClienteModel clienteModel) {
   }
 }
 
-autlogin(BuildContext context, {bool isRedirec = false}) async {
+autlogin(BuildContext context, {bool isRedirec: false}) async {
   final ClienteModel _cliente = await permisos.ingresar();
   ingresar(context, _cliente);
   return;
@@ -152,13 +153,16 @@ autlogin(BuildContext context, {bool isRedirec = false}) async {
 
 Widget buttonGoogle(String text, Icon icon, Function onPressed) {
   return RawMaterialButton(
-    onPressed: onPressed,
-    child: icon,
-    shape: CircleBorder(),
-    elevation: 1.0,
-    fillColor: Colors.redAccent,
-    padding: const EdgeInsets.all(13.0),
-  );
+      onPressed: onPressed,
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        const SizedBox(height: 20),
+        FloatingActionButton.extended(
+          icon: pr.iconoGoogle,
+          label: Text('Iniciar Sesión con Google'),
+          onPressed: onPressed,
+          backgroundColor: Colors.green,
+        )
+      ]));
 }
 
 Widget buttonFacebook(String text, Icon icon, Function onPressed) {

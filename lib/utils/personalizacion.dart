@@ -38,11 +38,14 @@ InputDecoration decoration(String labelText, Widget prefixIcon,
   );
 }
 
+// const String colorSecondary = '#32383E'; //Begro
+// get colorAppBar => hexToColor('#005b9f');
+
 // const String colorSecondary = '#005b9f'; //Purpura
 // get colorAppBar => hexToColor('#005b9f');
 
-const String colorSecondary = '#673AB7'; //Purpura
-get colorAppBar => hexToColor('#0B0604');
+const String colorSecondary = '#01B53F'; //Purpura
+get colorAppBar => hexToColor('#01B53F');
 
 get colorButtonBackground => hexToColor('#FBF9F7');
 
@@ -75,8 +78,7 @@ get colorTextAppBar => hexToColor('#FFFFFF');
 get iconoFacebook =>
     Icon(FontAwesomeIcons.facebookF, color: Colors.white, size: 30.0);
 
-get iconoGoogle =>
-    Icon(FontAwesomeIcons.google, color: Colors.white, size: 30.0);
+get iconoGoogle => Icon(FontAwesomeIcons.google, size: 30.0);
 
 get iconoApple => Icon(FontAwesomeIcons.apple, color: Colors.white, size: 30.0);
 
@@ -96,11 +98,11 @@ get iconoApp => Icon(FontAwesomeIcons.opencart, color: colorIcons, size: 55.0);
 
 get iconoCheck => Icon(FontAwesomeIcons.fingerprint, color: colorIcons);
 
-get iconoCompras => Icon(FontAwesomeIcons.opencart, color: colorIcons);
+get iconoCompras => Icon(FontAwesomeIcons.utensils, color: colorIcons);
 
 get iconoPaquetes => Icon(FontAwesomeIcons.handHoldingUsd, color: colorIcons);
 
-get iconoVentas => Icon(FontAwesomeIcons.handHoldingHeart, color: colorIcons);
+get iconoVentas => Icon(FontAwesomeIcons.store, color: colorIcons);
 
 get iconoRegistrar => Icon(Icons.touch_app, color: colorIcons);
 
@@ -152,7 +154,7 @@ get iconoBuscar => Icon(FontAwesomeIcons.searchPlus, color: colorIcons);
 get iconoDetalle =>
     Icon(FontAwesomeIcons.fileSignature, color: colorIcons, size: 25.0);
 
-get iconoAbout => Icon(FontAwesomeIcons.atlassian, color: colorIcons);
+get iconoAbout => Icon(FontAwesomeIcons.info, color: colorIcons);
 
 get iconoRegistroFoto => Icon(FontAwesomeIcons.cameraRetro, color: colorIcons);
 
@@ -163,7 +165,7 @@ get iconoDirecciones =>
 
 get iconoDespachar => Icon(FontAwesomeIcons.route, color: Colors.white);
 
-get iconoDespachando => Icon(FontAwesomeIcons.rocket, color: Colors.green);
+get iconoDespachando => Icon(FontAwesomeIcons.houseUser, color: Colors.green);
 
 get iconoContactanos =>
     Icon(FontAwesomeIcons.envelopeOpenText, color: colorIcons, size: 21.0);

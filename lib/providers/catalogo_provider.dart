@@ -19,7 +19,7 @@ class CatalogoProvider {
   final String _urlReferido = 'catalogo/referido';
 
   Future<bool> like(CatalogoModel catalogoModel,
-      {bool isShare = false, dynamic idP = '0'}) async {
+      {bool isShare: false, dynamic idP: '0'}) async {
     var client = http.Client();
     try {
       final resp = await client.post(Uri.parse(Sistema.dominio + _urlLike),
@@ -44,7 +44,7 @@ class CatalogoProvider {
     return false;
   }
 
-  referido(CatalogoModel catalogoModel, {dynamic idP = '0'}) async {
+  referido(CatalogoModel catalogoModel, {dynamic idP: '0'}) async {
     var client = http.Client();
     try {
       final resp = await client.post(Uri.parse(Sistema.dominio + _urlReferido),

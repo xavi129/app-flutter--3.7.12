@@ -40,7 +40,7 @@ class _RegistrarPageState extends State<RegistrarPage>
   GoogleSignIn _googleSignIn = GoogleSignIn();
 
   bool isCelularValido = true;
-  String codigoPais = '+593';
+  String codigoPais = '+52';
   List<String> countries;
   String smn = '';
 
@@ -48,7 +48,7 @@ class _RegistrarPageState extends State<RegistrarPage>
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
     super.initState();
-    _cliente.codigoPais = '+593';
+    _cliente.codigoPais = '+52';
     _cliente.correoValidado = '0';
     _cliente.celularValidado = '0';
     _escucharLoginGoogle();
@@ -209,10 +209,10 @@ class _RegistrarPageState extends State<RegistrarPage>
                             : Container();
                       },
                     ),
-                    rs.buttonFacebook('Continuar con Facebook',
-                        prs.iconoFacebook, _autenticarFacebook),
                     rs.buttonGoogle('Continuar con Google', prs.iconoGoogle,
                         _iniciarSessionGoogle),
+                    rs.buttonFacebook('Continuar con Facebook',
+                        prs.iconoFacebook, _autenticarFacebook),
                   ],
                 ),
                 SizedBox(height: 20.0),
@@ -223,7 +223,7 @@ class _RegistrarPageState extends State<RegistrarPage>
   }
 
   _terminos() {
-    _launchURL('https://www.planck.biz/terminos-y-condiciones');
+    _launchURL('https://www.sqentregas.biz/terminos-y-condiciones');
   }
 
   _launchURL(url) async {
@@ -244,7 +244,7 @@ class _RegistrarPageState extends State<RegistrarPage>
   }
 
   _onChangedCelular(phone) {
-    codigoPais = '+593';
+    codigoPais = '+52';
     _cliente.celular = phone;
   }
 

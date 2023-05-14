@@ -99,7 +99,7 @@ class AgenciaProvider {
     return agenciaesResponse;
   }
 
-  Future<List<AgenciaModel>> listarAgencias({String bCriterio = ''}) async {
+  Future<List<AgenciaModel>> listarAgencias({String bCriterio: ''}) async {
     var client = http.Client();
     List<AgenciaModel> agenciaesResponse = [];
     try {

@@ -32,13 +32,13 @@ class CardsPage extends StatefulWidget {
   final String motivo;
 
   CardsPage(
-      {this.idAgencia = '0',
+      {this.idAgencia: '0',
       this.img,
-      this.isMenu = false,
-      this.title = 'Métodos de pago',
-      this.agencia = '',
-      this.monto = '',
-      this.motivo = ''})
+      this.isMenu: false,
+      this.title: 'Métodos de pago',
+      this.agencia: '',
+      this.monto: '',
+      this.motivo: ''})
       : super();
 
   @override
@@ -124,7 +124,7 @@ class _CardsPageState extends State<CardsPage> {
               ),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: prs.colorButtonSecondary,
+                    primary: prs.colorButtonSecondary,
                     elevation: 2.0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0))),
@@ -338,7 +338,7 @@ class _CardsPageState extends State<CardsPage> {
               ),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: prs.colorButtonSecondary,
+                    primary: prs.colorButtonSecondary,
                     elevation: 2.0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0))),

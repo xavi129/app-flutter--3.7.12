@@ -128,8 +128,11 @@ class ChatDespachoCard extends StatelessWidget {
             Text(despachoModel.sucursalJson,
                 style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
             SizedBox(height: 4),
-            Text(despachoModel.nombres,
-                style: TextStyle(fontSize: 12, color: Colors.blueGrey))
+            Text(
+                'Ganancia: ${despachoModel.costoEnvio.toStringAsFixed(2)} Pesos',
+                style: TextStyle(fontSize: 12, color: Colors.black)),
+            Text('Cliente: ${despachoModel.nombres}',
+                style: TextStyle(fontSize: 12, color: Colors.black)),
           ],
         ),
       ),
@@ -159,7 +162,7 @@ class ChatDespachoCard extends StatelessWidget {
     if (despachoModel.idDespachoEstado == conf.DESPACHO_ASIGNADO)
       return Row(
         children: <Widget>[
-          Icon(FontAwesomeIcons.route, color: Colors.green),
+          Icon(FontAwesomeIcons.store, color: Colors.green),
           SizedBox(
             width: 5.0,
           )

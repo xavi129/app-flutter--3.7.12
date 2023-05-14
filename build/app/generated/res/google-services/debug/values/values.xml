@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">713717712583-ldvfas733encsfme2sats9lfvug2pd47.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">713717712583</string>
+    <string name="google_api_key" translatable="false">AIzaSyD5qG-oAFtThpElwGrYPGM4wQSSsVQ3dBU</string>
+    <string name="google_app_id" translatable="false">1:713717712583:android:4cd4be1c887d95111fe0e2</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyD5qG-oAFtThpElwGrYPGM4wQSSsVQ3dBU</string>
+    <string name="google_storage_bucket" translatable="false">sq-entregas-dd93b.appspot.com</string>
+    <string name="project_id" translatable="false">sq-entregas-dd93b</string>
+</resources>

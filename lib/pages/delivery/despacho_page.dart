@@ -275,7 +275,7 @@ class DespachoPageState extends State<DespachoPage>
             ),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                  backgroundColor: prs.colorButtonSecondary,
+                  primary: prs.colorButtonSecondary,
                   elevation: 2.0,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0))),
@@ -348,9 +348,8 @@ class DespachoPageState extends State<DespachoPage>
                   despachoModel.idDespachoEstado == conf.DESPACHO_ASIGNADO
               ? ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white10,
-                      foregroundColor: Colors.white),
-                  label: Text('P.  RECOGIDA'),
+                      primary: Colors.white10, onPrimary: Colors.white),
+                  label: Text('Ir a Restaurante'),
                   icon: cache.fadeImage('assets/pool/ingreso_0.png',
                       height: 40.0),
                   onPressed: _irPuntoRecogida,
@@ -360,9 +359,8 @@ class DespachoPageState extends State<DespachoPage>
                   despachoModel.idDespachoEstado == conf.DESPACHO_RECOGIDO
               ? ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white10,
-                      foregroundColor: Colors.white),
-                  label: Text('P.  ENTREGA'),
+                      primary: Colors.white10, onPrimary: Colors.white),
+                  label: Text('Ir a Entregar'),
                   icon:
                       cache.fadeImage('assets/pool/salida_0.png', height: 40.0),
                   onPressed: _irPuntoEntrega,
@@ -372,8 +370,7 @@ class DespachoPageState extends State<DespachoPage>
                   despachoModel.idDespachoEstado == conf.DESPACHO_ENTREGADO
               ? ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white10,
-                      foregroundColor: Colors.white),
+                      primary: Colors.white10, onPrimary: Colors.white),
                   label: Text('REVERSAR'),
                   icon: Icon(Icons.undo_sharp, size: 32.0),
                   onPressed: _reversar,
@@ -592,7 +589,7 @@ class DespachoPageState extends State<DespachoPage>
                 SizedBox(width: 30),
               ],
             ),
-            Text('Detalle:',
+            Text('Detalles:',
                 style: TextStyle(color: prs.colorIcons),
                 overflow: TextOverflow.ellipsis),
             SizedBox(height: 4.0),
@@ -645,7 +642,7 @@ class DespachoPageState extends State<DespachoPage>
   _notificar(String identificacion) async {
     try {
       String url =
-          'https://api.whatsapp.com/send?phone=593968424853&text=Hola, mi identificación es: $identificacion. ';
+          'https://api.whatsapp.com/send?phone=526612663471&text=Hola, mi identificación es: $identificacion. ';
       final Uri _url = Uri.parse(url);
       if (!await launchUrl(_url, mode: LaunchMode.externalApplication))
         throw 'Could not launch $_url';
@@ -866,7 +863,7 @@ class DespachoPageState extends State<DespachoPage>
               ),
               ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: prs.colorButtonSecondary,
+                      primary: prs.colorButtonSecondary,
                       elevation: 2.0,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0))),
@@ -940,7 +937,7 @@ class DespachoPageState extends State<DespachoPage>
               ),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: prs.colorButtonSecondary,
+                    primary: prs.colorButtonSecondary,
                     elevation: 2.0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0))),
@@ -1183,6 +1180,7 @@ class DespachoPageState extends State<DespachoPage>
               _zoom = cameraPosition.zoom;
             },
             onMapCreated: (GoogleMapController controller) {
+              controller.setMapStyle(utilss.mapStyle);
               _controller.complete(controller);
             },
             circles: circles,
@@ -1197,18 +1195,14 @@ class DespachoPageState extends State<DespachoPage>
                 right: 25.0,
                 child: ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          despachoModel.tipo == conf.COMPRA_TIPO_ENCOMIENDA
-                              ? Colors.green
-                              : prs.colorButtonSecondary,
+                      primary: despachoModel.tipo == conf.COMPRA_TIPO_ENCOMIENDA
+                          ? Colors.green
+                          : prs.colorButtonSecondary,
                       elevation: 2.0,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0))),
-                  label: Icon(
-                      despachoModel.tipo == conf.COMPRA_TIPO_ENCOMIENDA
-                          ? FontAwesomeIcons.peopleCarry
-                          : FontAwesomeIcons.store,
-                      size: 27.0),
+                  label: (cache.fadeImage('assets/pool/ingreso_0.png',
+                      height: 27.0)),
                   icon: Icon(FontAwesomeIcons.phoneAlt, size: 27.0),
                   onPressed: _llamarLocal,
                 ),
@@ -1221,14 +1215,14 @@ class DespachoPageState extends State<DespachoPage>
                 right: 25.0,
                 child: ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          despachoModel.tipo == conf.COMPRA_TIPO_ENCOMIENDA
-                              ? Colors.green
-                              : prs.colorButtonSecondary,
+                      primary: despachoModel.tipo == conf.COMPRA_TIPO_ENCOMIENDA
+                          ? Colors.green
+                          : prs.colorButtonSecondary,
                       elevation: 2.0,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0))),
-                  label: Icon(FontAwesomeIcons.store, size: 27.0),
+                  label: cache.fadeImage('assets/pool/ingreso_0.png',
+                      height: 27.0),
                   icon: Icon(FontAwesomeIcons.whatsapp, size: 27.0),
                   onPressed: () async {
                     String url =
@@ -1451,7 +1445,7 @@ class DespachoPageState extends State<DespachoPage>
       width: 250.0,
       child: ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
-            backgroundColor: despachoModel.tipo == conf.COMPRA_TIPO_ENCOMIENDA
+            primary: despachoModel.tipo == conf.COMPRA_TIPO_ENCOMIENDA
                 ? Colors.green
                 : prs.colorButtonSecondary,
             elevation: 2.0,
@@ -1539,4 +1533,176 @@ class DespachoPageState extends State<DespachoPage>
     final GoogleMapController controller = await _controller.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
   }
+}
+
+class utilss {
+  static String mapStyle = '''
+[
+    {
+        "featureType": "landscape.natural",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#dde2e3"
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.park",
+        "elementType": "all",
+        "stylers": [
+            {
+                "color": "#c6e8b3"
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.park",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#c6e8b3"
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "labels.text.stroke",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#c1d1d6"
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "color": "#a9b8bd"
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "road.local",
+        "elementType": "all",
+        "stylers": [
+            {
+                "color": "#f8fbfc"
+            }
+        ]
+    },
+    {
+        "featureType": "road.local",
+        "elementType": "labels.text",
+        "stylers": [
+            {
+                "color": "#979a9c"
+            },
+            {
+                "visibility": "on"
+            },
+            {
+                "weight": 0.5
+            }
+        ]
+    },
+    {
+        "featureType": "road.local",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+                "color": "#827e7e"
+            }
+        ]
+    },
+    {
+        "featureType": "road.local",
+        "elementType": "labels.text.stroke",
+        "stylers": [
+            {
+                "color": "#3b3c3c"
+            },
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#a6cbe3"
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    }
+]
+''';
 }

@@ -125,7 +125,8 @@ class _ComprasCajeroPageState extends State<ComprasCajeroPage>
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: Icon(Icons.business), label: 'Despachando'),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Historial'),
+          BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.list), label: 'Historial'),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.green,
@@ -213,8 +214,9 @@ class _ComprasCajeroPageState extends State<ComprasCajeroPage>
                 height: double.infinity,
                 child: Center(
                   child: Image(
-                      image: AssetImage('assets/icon_.png'),
+                      image: AssetImage('assets/gana.gif'),
                       width: 290.0,
+                      height: 340.0,
                       fit: BoxFit.cover),
                 ),
               );

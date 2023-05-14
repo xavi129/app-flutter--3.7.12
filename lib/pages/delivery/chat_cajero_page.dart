@@ -336,7 +336,7 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
                     children: <Widget>[
                       ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: prs.colorButtonSecondary,
+                            primary: prs.colorButtonSecondary,
                             elevation: 2.0,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20.0))),
@@ -347,7 +347,7 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
                         ),
                         onPressed: () async {
                           String url =
-                              'https://api.whatsapp.com/send?phone=${cajeroModel.celular.toString().replaceAll('+', '')}&text=Hola ${cajeroModel.nombres}, somos del APP ${Sistema.aplicativo} ';
+                              'https://api.whatsapp.com/send?phone=${cajeroModel.celular.toString().replaceAll('+', '')}&text=Hola ${cajeroModel.nombres}, somos de ${Sistema.aplicativo} ';
                           final Uri _url = Uri.parse(url);
                           if (!await launchUrl(_url,
                               mode: LaunchMode.externalApplication))
@@ -356,7 +356,7 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
                       ),
                       ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: prs.colorButtonSecondary,
+                            primary: prs.colorButtonSecondary,
                             elevation: 2.0,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20.0))),
@@ -387,7 +387,7 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
                   ? Container()
                   : ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: prs.colorButtonSecondary,
+                          primary: prs.colorButtonSecondary,
                           elevation: 2.0,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20.0))),
@@ -487,7 +487,7 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
 //          title: Text('Confirmación de pago'),
 //          content: SingleChildScrollView(
 //              child: Center(
-//            child: Text('${cajeroModel.costo} USD',
+//            child: Text('${cajeroModel.costo} Pesos',
 //                style: TextStyle(fontSize: 30)),
 //          )),
 //          actions: <Widget>[
@@ -546,7 +546,7 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
             ),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                  backgroundColor: prs.colorButtonSecondary,
+                  primary: prs.colorButtonSecondary,
                   elevation: 2.0,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0))),
@@ -661,7 +661,7 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
               ),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: prs.colorButtonSecondary,
+                    primary: prs.colorButtonSecondary,
                     elevation: 2.0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0))),
@@ -855,7 +855,7 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
               ),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: prs.colorButtonSecondary,
+                    primary: prs.colorButtonSecondary,
                     elevation: 2.0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0))),

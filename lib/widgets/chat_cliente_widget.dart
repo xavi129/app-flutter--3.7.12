@@ -91,7 +91,7 @@ class _ChatClienteWidgetState extends State<ChatClienteWidget> {
               textAlign: TextAlign.justify),
           Divider(),
           Text(
-              'Costo: ${(double.parse(widget.chatCompraModel.valor)).toStringAsFixed(2)} USD incluye envío',
+              'Costo: ${(double.parse(widget.chatCompraModel.valor)).toStringAsFixed(2)} Pesos incluye envío',
               style: TextStyle(color: Colors.white),
               textAlign: TextAlign.right),
           Divider(),

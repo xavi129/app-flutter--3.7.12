@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-import '../pages/paymentez/cards_page.dart';
 import '../preference/shared_preferences.dart';
 import '../providers/cliente_provider.dart';
 import '../sistema.dart';
@@ -74,14 +73,6 @@ class _MenuWidgetState extends State<MenuWidget> {
                     _elementos(),
                     Container(
                       padding: EdgeInsets.only(left: 15.0),
-                      child: ListTile(
-                          dense: true,
-                          leading: prs.iconoPuntos,
-                          title: Text('Insignia & Money | Cash'),
-                          onTap: () {
-                            Navigator.pop(context);
-                            Navigator.pushNamed(context, 'puntos');
-                          }),
                     ),
                   ],
                 ),
@@ -102,7 +93,7 @@ class _MenuWidgetState extends State<MenuWidget> {
           child: ListTile(
               dense: true,
               leading: prs.iconoContactanos,
-              title: Text('Contactanos'),
+              title: Text('Reportar Problemas'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, 'contacto');
@@ -114,7 +105,7 @@ class _MenuWidgetState extends State<MenuWidget> {
           child: ListTile(
               dense: true,
               leading: prs.iconoVentas,
-              title: Text('Aumenta tus ventas'),
+              title: Text('Inscribe tu negocio'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, 'preregistro');
@@ -131,8 +122,7 @@ class _MenuWidgetState extends State<MenuWidget> {
         ),
         Divider(),
         SizedBox(height: 4),
-        Text('V: ${utils.headers['vs']} Powered by Planck',
-            textScaleFactor: 0.8),
+        Text('V: ${utils.headers['vs']} SQ Entregas', textScaleFactor: 0.8),
         SizedBox(height: 10),
       ],
     );
@@ -231,20 +221,6 @@ class _MenuWidgetState extends State<MenuWidget> {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, 'compras_cliente');
               }),
-          Visibility(
-            visible: !_prefs.isExplorar,
-            child: ListTile(
-                dense: true,
-                leading: prs.iconoMenuMetodoPago,
-                title: Text('Métodos de pago & Gift'),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CardsPage(isMenu: true)));
-                }),
-          ),
           ListTile(
               dense: true,
               leading: prs.iconoDirecciones,
@@ -253,17 +229,6 @@ class _MenuWidgetState extends State<MenuWidget> {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, 'direcciones_cliente');
               }),
-          Visibility(
-            visible: !_prefs.isExplorar,
-            child: ListTile(
-                dense: true,
-                leading: prs.iconoFactura,
-                title: Text('Datos de facturas'),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.pushNamed(context, 'facturas_cliente');
-                }),
-          ),
         ],
       ),
     );
@@ -307,18 +272,10 @@ class _MenuWidgetState extends State<MenuWidget> {
           ListTile(
               dense: true,
               leading: prs.iconoCompras,
-              title: Text('Solicitar'),
+              title: Text('Pedir Comida'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, 'catalogo');
-              }),
-          ListTile(
-              dense: true,
-              leading: prs.iconoFactura,
-              title: Text('Datos de facturas'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, 'facturas_cliente');
               }),
           ListTile(
               dense: true,
@@ -340,20 +297,12 @@ class _MenuWidgetState extends State<MenuWidget> {
         children: <Widget>[
           ListTile(
               dense: true,
-              leading: prs.iconoCompras,
-              title: Text('Solicitar'),
+              leading: prs.iconoDirecciones,
+              title: Text('Mis direcciones'),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context, 'catalogo');
+                Navigator.pushNamed(context, 'direcciones_cliente');
               }),
-          ListTile(
-              dense: true,
-              leading: prs.iconoFactura,
-              title: Text('Datos de facturas'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, 'facturas_cliente');
-              })
         ],
       ),
     );

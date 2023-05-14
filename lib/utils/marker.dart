@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 Future<Uint8List> getBytesFromCanvas(String url, String acronimo,
-    {bool isLocal = true, int width = 100, int height = 200}) async {
+    {bool isLocal: true, int width: 100, int height: 200}) async {
   final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
   final Canvas canvas = Canvas(pictureRecorder);
   final Paint paint = Paint()..color = Colors.blue;

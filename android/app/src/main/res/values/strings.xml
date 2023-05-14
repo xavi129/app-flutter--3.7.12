@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Curiosity</string>
-    <string name="facebook_app_id">864906790903759</string> 
-    <string name="fb_login_protocol_scheme">fb864906790903759</string>
-
+    <string name="app_name">SQEntregas</string>
+    <string name="facebook_app_id">897307411503687</string> 
+    <string name="fb_login_protocol_scheme">fb897307411503687</string>
+    <string name="facebook_client_token">a16af91f485b84a7895d1a0c84206293</string>
     <color name="com_facebook_button_background_color_focused_disabled">#3C5A99</color>
     <color name="com_facebook_button_background_color_focused">#3C5A99</color>
     <color name="com_facebook_button_border_color_focused">#3C5A99</color>

@@ -94,8 +94,8 @@ class PromocionesAgenciaWidget extends StatelessWidget {
           left: 20.0,
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  backgroundColor: prs.colorButtonPrimary,
                   foregroundColor: prs.colorTextDescription,
+                  backgroundColor: prs.colorButtonPrimary,
                   elevation: 2.0,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0))),

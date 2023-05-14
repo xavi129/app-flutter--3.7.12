@@ -205,10 +205,10 @@ class _VentasPageState extends State<VentasPage> {
   }
 
   bool isCelularValido = true;
-  String codigoPais = '+593';
+  String codigoPais = '+52';
 
   _onChangedCelular(phone) {
-    codigoPais = '+593';
+    codigoPais = '+52';
     _cliente.celular = phone;
     _textControllerId.text = '';
     if (mounted) setState(() {});
@@ -346,8 +346,8 @@ class _VentasPageState extends State<VentasPage> {
 
     dlg.mostrar(
         context,
-        'Confirmo recibir: \n\n${(_recibo).toStringAsFixed(2)} USD\n\n'
-        'Crédito a consumir: \n\n$_creditoAconsumir USD\n\n'
+        'Confirmo recibir: \n\n${(_recibo).toStringAsFixed(2)} Pesos\n\n'
+        'Crédito a consumir: \n\n$_creditoAconsumir Pesos\n\n'
         'Se acreditará: ${(tarjetaModel.saldo + tarjetaModel.promocion).toStringAsFixed(2)}',
         titulo: _cliente.nombres,
         fIzquierda: _cancelar,

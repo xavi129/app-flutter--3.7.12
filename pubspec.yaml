@@ -1,4 +1,4 @@
-name: curiosity
+name: SQEntregas
 description: Compra a domicilio a los mejores restaurantes en Loja, encuentra cafeterías el delicioso tamal Lojano. Todos los días encontraras restaurant con envío gratis.
 
 # The following defines the version and build number for your application.
@@ -11,7 +11,7 @@ description: Compra a domicilio a los mejores restaurantes en Loja, encuentra ca
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.71.77+77
+version: 0.0.20+20
 
 environment:
   sdk: '>=2.11.0 <3.0.0'
@@ -121,7 +121,7 @@ flutter:
     - assets/
     - assets/screen/
     - assets/pool/
-
+    - assets/images/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

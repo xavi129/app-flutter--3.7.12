@@ -51,7 +51,7 @@ import 'solicitud_page.dart';
 class CatalogoPage extends StatefulWidget {
   final bool isDeeplink;
 
-  CatalogoPage({this.isDeeplink = false});
+  CatalogoPage({this.isDeeplink: false});
 
   @override
   _CatalogoPageState createState() => _CatalogoPageState();
@@ -305,7 +305,7 @@ class _CatalogoPageState extends State<CatalogoPage>
               children: <Widget>[
                 Container(
                   child: Text(
-                    '¡ Cerca de ${_prefs.alias} !',
+                    '¡ Entregar a ${_prefs.alias} !',
                     style:
                         TextStyle(color: prs.colorTextAppBar, fontSize: 16.0),
                     overflow: TextOverflow.ellipsis,
@@ -426,7 +426,7 @@ class _CatalogoPageState extends State<CatalogoPage>
             SizedBox(height: 3.0),
             Container(
               width: 50.0,
-              height: 46.0,
+              height: 50.0,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(40)),
@@ -476,7 +476,7 @@ class _CatalogoPageState extends State<CatalogoPage>
   }
 
   _onSpeedDialAction(CategoriaModel categoriaModel,
-      {String criterio = '', bool isBuscar = false}) async {
+      {String criterio: '', bool isBuscar: false}) async {
     if (isBuscar) {
       _tituloProductos = 'Productos relacionados';
       _subTituloProductos = '$criterio';
@@ -563,7 +563,7 @@ class _CatalogoPageState extends State<CatalogoPage>
     _onItemTapped(2, idAgencia: idAgencia);
   }
 
-  _onItemTapped(int index, {dynamic idAgencia = -1}) {
+  _onItemTapped(int index, {dynamic idAgencia: -1}) {
     switch (index) {
       case 0:
         _refrezcar();
@@ -589,7 +589,7 @@ class _CatalogoPageState extends State<CatalogoPage>
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image(
-                image: AssetImage('assets/screen/direcciones.png'),
+                image: AssetImage('assets/screen/dire.png'),
                 fit: BoxFit.cover,
                 width: 170.0),
             SizedBox(height: 20.0),
@@ -608,13 +608,13 @@ class _CatalogoPageState extends State<CatalogoPage>
             GestureDetector(
                 child: Text('PERFIL',
                     style: TextStyle(
-                        color: Colors.indigo,
+                        color: Color.fromARGB(255, 63, 181, 132),
                         decoration: TextDecoration.underline)),
                 onTap: () {
                   Navigator.pushNamed(context, 'perfil');
                 }),
             SizedBox(height: 15.0),
-            btn.confirmar('REGISTRAR DIRECCIÓN', _requestGps),
+            btn.confirmar('REGISTRAR UBICACIÓN', _requestGps),
             SizedBox(height: 5.0),
             Text(Sistema.MESAJE_CATALOGO, textAlign: TextAlign.justify),
             SizedBox(height: 90.0),

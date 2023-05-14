@@ -19,14 +19,14 @@ class Sistema {
   static const String SEARCH_MENSJAE = '¿Que te gustaría comer hoy?';
 
   static const String MESAJE_SHARE_LINK =
-      'Descarga gratis Curiosity y encuentra promociones exclusivas.';
+      'Descarga gratis SQ Entregas y encuentra promociones exclusivas.';
 
   static const String MESAJE_CATALOGO =
       'Registra la dirección donde enviaremos tu compra.';
 
   static const bool ID_VERIFICAR_URBE = true;
   static const bool IS_BACKGROUND = false;
-  static const String ID_URBE = '1';
+  static const String ID_URBE = '2';
 
   static const int TARGET_WIDTH_PERFIL = 400;
   static const int TARGET_WIDTH_CHAT = 600;
@@ -48,15 +48,15 @@ class Sistema {
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
   static const sloganCuriosity =
-      'Curiosity, para las personas que quieren más.';
-  static const aplicativoCuriosity = 'CURIOSITY';
+      'SQ Entregas, para las personas que quieren más.';
+  static const aplicativoCuriosity = 'SQ Entregas';
   static const idAplicativoCuriosity = 1000001;
-  static const aplicativoTitleCuriosity = 'Curiosity';
+  static const aplicativoTitleCuriosity = 'SQ Entregas';
   static const packageNameCuriosity = 'com.SQ.Entregas';
   static const appStoreIdCuriosity = '1488624281';
-  static const uriDynamicCuriosity = 'https://TU.DOMINIO.COM/WEB';
-  static const double lt = 39.678456;
-  static const double lg = -104.970227;
+  static const uriDynamicCuriosity = 'https://comer.page.link/web';
+  static const double lt = 30.5774366;
+  static const double lg = -115.9459816;
 
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -81,7 +81,7 @@ class Sistema {
   static get storage => 'https://firebasestorage.googleapis.com/v0/b/';
 
   static get uriPrefix =>
-      'https://${aplicativo.toLowerCase()}.TU.DOMINIO.COM'; //La barra al final causa problemas en iOS
+      'https://comer.page.link'; //La barra al final causa problemas en iOS
 
   static get uriDynamic => _uriDynamic;
 

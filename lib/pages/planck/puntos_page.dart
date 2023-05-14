@@ -232,12 +232,12 @@ class _PuntosPageState extends State<PuntosPage> {
               icon: Icon(Icons.help_outline, size: 27.0),
               onPressed: () async {
                 return dlg.mostrar(context,
-                    'Con money puedes pagar el costo o parte del costo de entrega. \n\nAl invitar a tus amigos a usar Curiosity tienes mayor probabilidad de obtener money.',
-                    titulo: 'Curiosity Money');
+                    'Con money puedes pagar el costo o parte del costo de entrega. \n\nAl invitar a tus amigos a usar SQ Entregas tienes mayor probabilidad de obtener money.',
+                    titulo: 'SQ Entregas Money');
               },
             ),
-            hintText: 'Curiosity Money',
-            labelText: 'Curiosity Money',
+            hintText: 'SQ Entregas Money',
+            labelText: 'SQ Entregas Money',
             icon: prs.iconoMoney),
       ),
     );

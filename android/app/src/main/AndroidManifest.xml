@@ -12,12 +12,20 @@
     <application
         android:name=".Application"
         android:icon="@mipmap/launcher_icon"
-        android:label="Curiosity"
+        android:label="SQ Entregas"
         tools:replace="android:label">
 
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+            <meta-data
+         android:name="com.google.firebase.messaging.default_notification_icon"
+         android:resource="@drawable/hola" />
+            <meta-data
+         android:name="com.google.firebase.messaging.default_notification_color"
+         android:resource="@color/colorPrimary" />
+
 
         <activity
             android:name=".MainActivity"
@@ -66,29 +74,27 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDDfmRj3DcI08yalQfoopLbyIEQNvU2lFo" />
+            android:value="AIzaSyAGJ2a31is5BB4ydWjbY3CpIzYdkfrXLHc" />
 
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
+        <!-- FACEBOOK CONFIGURATIONS -->
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
 
-        <activity
-            android:name="com.facebook.FacebookActivity"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
-
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+        <!--FACEBOOK CONFIGURATION ENDS HERE -->
 
 
         <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
@@ -104,6 +110,7 @@
 
     <queries>
         <!-- If your app opens https URLs -->
+          <package android:name="com.facebook.katana" />
         <intent>
             <action android:name="android.intent.action.VIEW" />
             <data android:scheme="https" />
@@ -126,7 +133,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!--SOLO SI SE SOLICITA UBICACION EN BACKGROUND-->
-<!--    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />-->
+    <!--<uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />//-->
     <!--///////////////////////////////////////////-->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />

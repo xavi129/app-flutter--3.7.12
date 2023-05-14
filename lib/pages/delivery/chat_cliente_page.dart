@@ -233,7 +233,7 @@ class _ChatClientePageState extends State<ChatClientePage>
             ),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                  backgroundColor: prs.colorButtonSecondary,
+                  primary: prs.colorButtonSecondary,
                   elevation: 2.0,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0))),

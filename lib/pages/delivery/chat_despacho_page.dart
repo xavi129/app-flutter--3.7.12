@@ -402,7 +402,7 @@ class _ChatDespachoPageState extends State<ChatDespachoPage>
                     _tomarFoto(1);
                   },
                 ),
-                hintText: "La libertad muere si no se usa"),
+                hintText: "Hola"),
           ),
         ),
         _audio

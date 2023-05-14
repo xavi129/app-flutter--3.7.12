@@ -238,7 +238,7 @@ class ClienteProvider {
     return response(0, config.MENSAJE_INTERNET);
   }
 
-  validadCelular(dynamic celular, {dynamic idClienteVerificar = 0}) async {
+  validadCelular(dynamic celular, {dynamic idClienteVerificar: 0}) async {
     var client = http.Client();
     try {
       final resp = await client.post(
@@ -423,7 +423,7 @@ class ClienteProvider {
   }
 
   Future cerrarSession(Function response,
-      {dynamic idPlataforma, dynamic imei, int all = 0}) async {
+      {dynamic idPlataforma, dynamic imei, int all: 0}) async {
     var client = http.Client();
     try {
       final resp = await client.post(

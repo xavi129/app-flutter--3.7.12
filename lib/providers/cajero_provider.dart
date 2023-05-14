@@ -73,6 +73,7 @@ class CajeroProvider {
             'agencias': agencias.replaceAll('[', '').replaceAll(']', ''),
             'promociones': promociones.replaceAll('[', '').replaceAll(']', ''),
           });
+
       Map<String, dynamic> decodedResp = json.decode(resp.body);
       if (decodedResp['estado'] == 1) {
         double saldo = double.parse(decodedResp['saldo'].toString());

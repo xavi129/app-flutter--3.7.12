@@ -183,7 +183,8 @@ class _ComprasDespachoPageState extends State<ComprasDespachoPage>
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: Icon(FontAwesomeIcons.peopleCarry), label: 'Solicitudes'),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Historial'),
+          BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.list), label: 'Historial'),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.green,

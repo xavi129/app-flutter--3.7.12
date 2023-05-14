@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../sistema.dart';
 import '../../utils/button.dart' as btn;
 import '../../utils/personalizacion.dart' as prs;
 import '../../utils/utils.dart' as utils;
@@ -36,8 +37,9 @@ class _AboutPageState extends State<AboutPage> {
     return Column(
       children: <Widget>[
         Expanded(child: SingleChildScrollView(child: _contenido())),
-        btn.confirmar('POWERED BY PLANCK', () {
-          _launchURL('https://www.planck.biz/');
+        btn.confirmar('Desarollado por SQ Entregas', () {
+          _launchURL(
+              'fb://facewebmodal/f?href=https://www.facebook.com/100083392400030');
         }),
       ],
     );
@@ -51,21 +53,20 @@ class _AboutPageState extends State<AboutPage> {
           child: Column(
             children: <Widget>[
               SizedBox(height: 35.0),
-              GestureDetector(
-                onTap: () {
-                  _source();
-                },
-                child: Image.asset("assets/icon_.png", height: 270),
-              ),
-              const Text(
-                "This software is distributed under MIT license. It is available at UDEMY in the author's account. Juan Pablo Guamán Rodríguez (Planck)",
-                textAlign: TextAlign.center,
-              ),
+              Image(
+                  image: AssetImage('assets/icon_.png'),
+                  width: 270.0,
+                  fit: BoxFit.cover),
+              SizedBox(height: 40.0),
+              Text(
+                  '${Sistema.aplicativoTitle} permite generar un acercamiento entre el vendedor y sus clientes mediante un chat interactivo con opciones para envío de imágenes y audio, así como la geolocalización del usuario para el despacho de su producto.',
+                  textAlign: TextAlign.center),
               SizedBox(height: 20.0),
-              btn.bootonIcon('Source code', Icon(Icons.download), _source),
+              Text(
+                  'También te presentamos opciones para visualizar y comprar promociones, historial de compras y un sistema de puntos para calificar y premiar a los mejores usuarios del app',
+                  textAlign: TextAlign.center),
               SizedBox(height: 20.0),
               btn.booton('Política de privacidad', _politicas),
-              SizedBox(height: 20.0),
               btn.booton('Términos y condiciones', _terminos),
               SizedBox(height: 80.0),
             ],
@@ -75,16 +76,12 @@ class _AboutPageState extends State<AboutPage> {
     );
   }
 
-  _source() {
-    _launchURL('https://udemy.planck.biz/delivery');
-  }
-
   _politicas() {
-    _launchURL('https://www.planck.biz/politica-de-privacidad');
+    _launchURL('https://sqentregas.com/politica-de-privacidad.html');
   }
 
   _terminos() {
-    _launchURL('https://www.planck.biz/terminos-y-condiciones');
+    _launchURL('https://sqentregas.com/terminos-y-condiciones.html');
   }
 
   _launchURL(url) async {

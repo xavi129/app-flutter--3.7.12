@@ -8,7 +8,7 @@ import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 import '../../model/cliente_model.dart';
 import '../../preference/shared_preferences.dart';
 import '../../providers/cliente_provider.dart';
-import '../../sistema.dart';
+
 import '../../utils/button.dart' as btn;
 import '../../utils/personalizacion.dart' as prs;
 import '../../utils/redes_sociales.dart' as rs;
@@ -138,7 +138,9 @@ class _LoginPageState extends State<LoginPage> {
                   children: <Widget>[
                     Text('¿Olvidaste tu contraseña? ',
                         textAlign: TextAlign.center),
-                    Text('¡Recuperar!', style: TextStyle(color: Colors.indigo)),
+                    Text('¡Recuperar!',
+                        style:
+                            TextStyle(color: Color.fromARGB(255, 63, 181, 1))),
                   ],
                 ),
                 onPressed: () => Navigator.pushNamed(context, 'contrasenia'),
@@ -166,34 +168,12 @@ class _LoginPageState extends State<LoginPage> {
                             );
                     },
                   ),
-                  rs.buttonFacebook('Continuar con Facebook', prs.iconoFacebook,
-                      _autenticarFacebook),
                   rs.buttonGoogle('Continuar con Google', prs.iconoGoogle,
                       _iniciarSessionGoogle),
+                  rs.buttonFacebook('Continuar con Facebook', prs.iconoFacebook,
+                      _autenticarFacebook),
                 ],
-              ),
-              SizedBox(height: 20.0),
-              Visibility(
-                // visible: Sistema.isIOS,
-                child: TextButton(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text('¡EXPLORAR ${Sistema.aplicativo}!',
-                          style: TextStyle(color: Colors.indigo)),
-                    ],
-                  ),
-                  onPressed: () async {
-                    _saving = true;
-                    if (mounted) setState(() {});
-                    await rs.autlogin(context);
-                    _saving = false;
-                    if (mounted) setState(() {});
-                  },
-                ),
-              ),
-              SizedBox(height: 20.0),
+              )
             ],
           ),
         ),
@@ -202,7 +182,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   bool isCelularValido = true;
-  String codigoPais = '+593';
+  String codigoPais = '+52';
 
   _onChangedCelular(phone) {
     cliente.celular = phone;
@@ -257,15 +237,6 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  void _autenticarFacebook() async {
-    _saving = true;
-    if (mounted) setState(() {});
-    await rs.autenticarFacebook(context, codigoPais, smn, (login) {
-      _saving = false;
-      if (mounted) if (mounted) setState(() {});
-    });
-  }
-
   void _autenticarApple() async {
     _saving = true;
     if (mounted) setState(() {});
@@ -284,6 +255,15 @@ class _LoginPageState extends State<LoginPage> {
         img, idGoogle, nombres, apellidos);
     _saving = false;
     if (mounted) if (mounted) setState(() {});
+  }
+
+  void _autenticarFacebook() async {
+    _saving = true;
+    if (mounted) setState(() {});
+    await rs.autenticarFacebook(context, codigoPais, smn, (login) {
+      _saving = false;
+      if (mounted) if (mounted) setState(() {});
+    });
   }
 
   Future<void> _iniciarSessionGoogle() async {

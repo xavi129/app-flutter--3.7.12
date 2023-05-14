@@ -34,8 +34,8 @@ Widget archivoParaClienteRecive(BuildContext context, chatCompraModel, imagen) {
                         Container(
                           child: ElevatedButton.icon(
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: prs.colorButtonPrimary,
-                                foregroundColor: prs.colorTextDescription,
+                                primary: prs.colorButtonPrimary,
+                                onPrimary: prs.colorTextDescription,
                                 elevation: 2.0,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5.0))),
@@ -107,8 +107,8 @@ Widget archivoParaClienteEnvia(
                         Container(
                           child: ElevatedButton.icon(
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: prs.colorButtonPrimary,
-                                foregroundColor: prs.colorTextDescription,
+                                primary: prs.colorButtonPrimary,
+                                onPrimary: prs.colorTextDescription,
                                 elevation: 2.0,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5.0))),
@@ -175,7 +175,7 @@ void mostrarImagen(BuildContext context, String url) {
         actions: <Widget>[
           ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
-                backgroundColor: prs.colorButtonSecondary,
+                primary: prs.colorButtonSecondary,
                 elevation: 2.0,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0))),

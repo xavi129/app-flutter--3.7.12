@@ -17,7 +17,7 @@ class ComprarPromoWidget extends StatefulWidget {
   final String agencia;
 
   ComprarPromoWidget(this.pageController,
-      {@required this.promociones, this.isOppen = true, this.agencia = ''});
+      {@required this.promociones, this.isOppen: true, this.agencia: ''});
 
   @override
   _ComprarPromoWidgetState createState() => _ComprarPromoWidgetState();
