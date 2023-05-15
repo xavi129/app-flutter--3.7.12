@@ -24,13 +24,13 @@ Future<ClienteModel> ingresar() async {
   await utils.getDeviceDetails(uuid: Sistema.idUuid);
   ClienteModel clienteModel = ClienteModel();
   clienteModel.img =
-      'https://image.freepik.com/vector-gratis/asociacion-afiliados-ganar-dinero-estrategia-mercadeo_115790-146.jpg';
+      'https://img.freepik.com/free-photo/flat-lay-assortment-with-delicious-brazilian-food_23-2148739179.jpg?';
   clienteModel.idCliente = _prefs.idCliente;
-  clienteModel.correo = 'explorar@${Sistema.aplicativoTitle.toLowerCase()}.com';
+  clienteModel.correo = 'explorar@SQEntregas.com';
   clienteModel.nombres = 'Invitado ${Sistema.aplicativoTitle}';
   clienteModel.direcciones = 1;
   clienteModel.idUrbe = Sistema.ID_URBE;
-  clienteModel.perfil = 0;
+  clienteModel.perfil = 4;
   _prefs.clienteModel = clienteModel;
   return clienteModel;
 }

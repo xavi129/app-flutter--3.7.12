@@ -398,6 +398,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "google_fonts",
+      "rootUri": "file:///C:/Users/xavih/AppData/Local/Pub/Cache/hosted/pub.dev/google_fonts-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "google_maps_flutter",
       "rootUri": "file:///C:/Users/xavih/AppData/Local/Pub/Cache/hosted/pub.dev/google_maps_flutter-2.2.6",
       "packageUri": "lib/",
@@ -1088,7 +1094,7 @@
       "languageVersion": "2.11"
     }
   ],
-  "generated": "2023-05-14T17:32:23.505765Z",
+  "generated": "2023-05-15T03:47:38.400667Z",
   "generator": "pub",
   "generatorVersion": "2.19.6"
 }

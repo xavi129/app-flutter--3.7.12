@@ -25,6 +25,7 @@ import 'pages/planck/preregistro_page.dart';
 import 'pages/planck/puntos_page.dart';
 import 'pages/planck/registrar_page.dart';
 import 'pages/planck/sessiones_page.dart';
+import 'Onboarding/onboarding_screen.dart';
 import 'preference/intent_share.dart';
 import 'preference/push_provider.dart';
 import 'preference/shared_preferences.dart';
@@ -44,7 +45,7 @@ void main() async {
     prefs.simCountryCode = await FlutterSimCountryCode.simCountryCode;
   } catch (exception) {
     print('page: main.dart catch $exception');
-    prefs.simCountryCode = 'EC';
+    prefs.simCountryCode = 'MX';
   }
   runApp(MyApp());
 }
@@ -59,7 +60,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    String ruta = 'catalogo';
+    String ruta = 'onboard';
     if (_prefs.auth == '') {
       ruta = 'principal';
     } else if (_prefs.clienteModel.perfil == '0') {
@@ -68,8 +69,10 @@ class _MyAppState extends State<MyApp> {
       ruta = 'compras_cajero';
     } else if (_prefs.clienteModel.perfil == '2') {
       ruta = 'compras_despacho';
+    } else if (_prefs.clienteModel.perfil == '4') {
+      ruta = 'onboard';
     } else {
-      ruta = 'catalogo';
+      ruta = 'onboard';
     }
     print(Sistema.DOMINIO_GLOBAL);
 
@@ -105,6 +108,7 @@ class _MyAppState extends State<MyApp> {
         'ventas': (BuildContext context) => VentasPage(),
         'agencia': (BuildContext context) => AngenciaPage(),
         'notificacion': (BuildContext context) => NotificacionPage(),
+        'onboard': (BuildContext context) => OnboardingScreen(),
       },
       theme: ThemeData(
           primaryColor: prs.colorAppBar,
