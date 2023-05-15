@@ -115,8 +115,8 @@ class _CarritoWidgetState extends State<CarritoWidget> {
                 right: 10.0,
                 child: ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                      primary: prs.colorButtonPrimary,
-                      onPrimary: prs.colorTextDescription,
+                      foregroundColor: prs.colorTextDescription,
+                      backgroundColor: prs.colorButtonPrimary,
                       elevation: 1.0,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0))),
@@ -177,8 +177,8 @@ class _CarritoWidgetState extends State<CarritoWidget> {
           children: <Widget>[
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                  primary: prs.colorButtonPrimary,
-                  onPrimary: prs.colorTextDescription,
+                  foregroundColor: prs.colorTextDescription,
+                  backgroundColor: prs.colorButtonPrimary,
                   elevation: 1.0,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0))),
@@ -199,7 +199,7 @@ class _CarritoWidgetState extends State<CarritoWidget> {
             Expanded(child: Container()),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                  primary: prs.colorButtonSecondary,
+                  backgroundColor: prs.colorButtonSecondary,
                   elevation: 2.0,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0))),

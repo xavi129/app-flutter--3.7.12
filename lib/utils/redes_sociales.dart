@@ -145,7 +145,7 @@ ingresar(BuildContext context, ClienteModel clienteModel) {
   }
 }
 
-autlogin(BuildContext context, {bool isRedirec: false}) async {
+autlogin(BuildContext context, {bool isRedirec = false}) async {
   final ClienteModel _cliente = await permisos.ingresar();
   ingresar(context, _cliente);
   return;

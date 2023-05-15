@@ -137,7 +137,7 @@ class _ContactoPageState extends State<ContactoPage> {
             actions: <Widget>[
               ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                      primary: prs.colorButtonSecondary,
+                      backgroundColor: prs.colorButtonSecondary,
                       elevation: 2.0,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0))),

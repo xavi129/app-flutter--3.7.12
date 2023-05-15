@@ -112,7 +112,7 @@ class _ProductosPageState extends State<ProductosPage> {
                   onPressed: () => Navigator.of(context).pop()),
               ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                      primary: prs.colorButtonSecondary,
+                      backgroundColor: prs.colorButtonSecondary,
                       elevation: 2.0,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0))),

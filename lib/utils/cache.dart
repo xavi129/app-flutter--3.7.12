@@ -17,10 +17,10 @@ String img(String img) {
 Widget acronicmo(String acronimo,
     {double width,
     double height,
-    double fontSize: 30.0,
-    Color color: Colors.white,
-    int days: 90,
-    int minutes: 0}) {
+    double fontSize = 30.0,
+    Color color = Colors.white,
+    int days = 90,
+    int minutes = 0}) {
   return Container(
     color: color,
     width: width,
@@ -37,11 +37,11 @@ Widget acronicmo(String acronimo,
 Widget fadeImage(String img,
     {double width,
     double height,
-    String acronimo: 'S/N',
-    double fontSize: 30.0,
-    Color color: Colors.white,
-    int days: 90,
-    int minutes: 0}) {
+    String acronimo = 'S/N',
+    double fontSize = 30.0,
+    Color color = Colors.white,
+    int days = 90,
+    int minutes = 0}) {
   if (img != null && img.contains('assets/', 0))
     return FadeInImage(
         width: width,

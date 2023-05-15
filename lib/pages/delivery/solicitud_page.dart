@@ -35,7 +35,8 @@ class SolicitudPage extends StatefulWidget {
   final double lt, lg;
   final int pagina;
 
-  SolicitudPage(this.lt, this.lg, {Key key, this.catalogoModel, this.pagina: 0})
+  SolicitudPage(this.lt, this.lg,
+      {Key key, this.catalogoModel, this.pagina = 0})
       : super(key: key);
 
   @override
@@ -224,8 +225,8 @@ class SolicitudPageState extends State<SolicitudPage>
                     delay: Duration(seconds: 2),
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            primary: Colors.red,
-                            onPrimary: Colors.white,
+                            foregroundColor: Colors.white,
+                            backgroundColor: Colors.red,
                             elevation: 1.0,
                             shape: RoundedRectangleBorder(
                                 side: BorderSide(

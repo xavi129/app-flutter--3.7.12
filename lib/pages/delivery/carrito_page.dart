@@ -116,7 +116,7 @@ class _CarritoPageState extends State<CarritoPage> {
     );
   }
 
-  cambiarDireccion({bool mostrarResumen: true}) async {
+  cambiarDireccion({bool mostrarResumen = true}) async {
     if (direccionSeleccionada.idDireccion <= 0) return;
 
     _update('Consultando costo');

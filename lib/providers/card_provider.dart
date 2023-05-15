@@ -88,7 +88,7 @@ class CardProvider {
 
   debitar(CardModel cardModel, String amount, String cash, dynamic sucursal,
       dynamic costo, dynamic envio, dynamic detalle, Function response,
-      {String pin: '', String idAgencia: '0'}) async {
+      {String pin = '', String idAgencia = '0'}) async {
     String idTransaccion = '0';
     final resp = await http.post(Uri.parse(Sistema.dominio + _urlDebitar),
         headers: utils.headers,

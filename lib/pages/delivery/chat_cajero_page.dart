@@ -336,7 +336,7 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
                     children: <Widget>[
                       ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
-                            primary: prs.colorButtonSecondary,
+                            backgroundColor: prs.colorButtonSecondary,
                             elevation: 2.0,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20.0))),
@@ -356,7 +356,7 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
                       ),
                       ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
-                            primary: prs.colorButtonSecondary,
+                            backgroundColor: prs.colorButtonSecondary,
                             elevation: 2.0,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20.0))),
@@ -387,7 +387,7 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
                   ? Container()
                   : ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
-                          primary: prs.colorButtonSecondary,
+                          backgroundColor: prs.colorButtonSecondary,
                           elevation: 2.0,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20.0))),
@@ -546,7 +546,7 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
             ),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                  primary: prs.colorButtonSecondary,
+                  backgroundColor: prs.colorButtonSecondary,
                   elevation: 2.0,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0))),
@@ -661,7 +661,7 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
               ),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                    primary: prs.colorButtonSecondary,
+                    backgroundColor: prs.colorButtonSecondary,
                     elevation: 2.0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0))),
@@ -855,7 +855,7 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
               ),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                    primary: prs.colorButtonSecondary,
+                    backgroundColor: prs.colorButtonSecondary,
                     elevation: 2.0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0))),

@@ -51,7 +51,7 @@ import 'solicitud_page.dart';
 class CatalogoPage extends StatefulWidget {
   final bool isDeeplink;
 
-  CatalogoPage({this.isDeeplink: false});
+  CatalogoPage({this.isDeeplink = false});
 
   @override
   _CatalogoPageState createState() => _CatalogoPageState();
@@ -476,7 +476,7 @@ class _CatalogoPageState extends State<CatalogoPage>
   }
 
   _onSpeedDialAction(CategoriaModel categoriaModel,
-      {String criterio: '', bool isBuscar: false}) async {
+      {String criterio = '', bool isBuscar = false}) async {
     if (isBuscar) {
       _tituloProductos = 'Productos relacionados';
       _subTituloProductos = '$criterio';
@@ -563,7 +563,7 @@ class _CatalogoPageState extends State<CatalogoPage>
     _onItemTapped(2, idAgencia: idAgencia);
   }
 
-  _onItemTapped(int index, {dynamic idAgencia: -1}) {
+  _onItemTapped(int index, {dynamic idAgencia = -1}) {
     switch (index) {
       case 0:
         _refrezcar();

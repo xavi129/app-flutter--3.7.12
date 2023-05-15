@@ -275,7 +275,7 @@ class DespachoPageState extends State<DespachoPage>
             ),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                  primary: prs.colorButtonSecondary,
+                  backgroundColor: prs.colorButtonSecondary,
                   elevation: 2.0,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0))),
@@ -348,7 +348,8 @@ class DespachoPageState extends State<DespachoPage>
                   despachoModel.idDespachoEstado == conf.DESPACHO_ASIGNADO
               ? ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.white10, onPrimary: Colors.white),
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.white10),
                   label: Text('Ir a Restaurante'),
                   icon: cache.fadeImage('assets/pool/ingreso_0.png',
                       height: 40.0),
@@ -359,7 +360,8 @@ class DespachoPageState extends State<DespachoPage>
                   despachoModel.idDespachoEstado == conf.DESPACHO_RECOGIDO
               ? ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.white10, onPrimary: Colors.white),
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.white10),
                   label: Text('Ir a Entregar'),
                   icon:
                       cache.fadeImage('assets/pool/salida_0.png', height: 40.0),
@@ -370,7 +372,8 @@ class DespachoPageState extends State<DespachoPage>
                   despachoModel.idDespachoEstado == conf.DESPACHO_ENTREGADO
               ? ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.white10, onPrimary: Colors.white),
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.white10),
                   label: Text('REVERSAR'),
                   icon: Icon(Icons.undo_sharp, size: 32.0),
                   onPressed: _reversar,
@@ -619,7 +622,7 @@ class DespachoPageState extends State<DespachoPage>
     if (despachoModel.idDespachoEstado >= conf.DESPACHO_ENTREGADO &&
         Sistema.idAplicativo == Sistema.idAplicativoCuriosity) {
       String identificacion =
-          '${utils.generateMd5(('${despachoModel.idCompra}.J-P.${despachoModel.idDespacho}'))}';
+          '${('${despachoModel.idCompra}.J-P.${despachoModel.idDespacho}')}';
       return TextFormField(
         readOnly: true,
         initialValue: identificacion,
@@ -863,7 +866,7 @@ class DespachoPageState extends State<DespachoPage>
               ),
               ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                      primary: prs.colorButtonSecondary,
+                      backgroundColor: prs.colorButtonSecondary,
                       elevation: 2.0,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0))),
@@ -937,7 +940,7 @@ class DespachoPageState extends State<DespachoPage>
               ),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                    primary: prs.colorButtonSecondary,
+                    backgroundColor: prs.colorButtonSecondary,
                     elevation: 2.0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0))),
@@ -1195,9 +1198,10 @@ class DespachoPageState extends State<DespachoPage>
                 right: 25.0,
                 child: ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                      primary: despachoModel.tipo == conf.COMPRA_TIPO_ENCOMIENDA
-                          ? Colors.green
-                          : prs.colorButtonSecondary,
+                      backgroundColor:
+                          despachoModel.tipo == conf.COMPRA_TIPO_ENCOMIENDA
+                              ? Colors.green
+                              : prs.colorButtonSecondary,
                       elevation: 2.0,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0))),
@@ -1215,9 +1219,10 @@ class DespachoPageState extends State<DespachoPage>
                 right: 25.0,
                 child: ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                      primary: despachoModel.tipo == conf.COMPRA_TIPO_ENCOMIENDA
-                          ? Colors.green
-                          : prs.colorButtonSecondary,
+                      backgroundColor:
+                          despachoModel.tipo == conf.COMPRA_TIPO_ENCOMIENDA
+                              ? Colors.green
+                              : prs.colorButtonSecondary,
                       elevation: 2.0,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0))),
@@ -1445,7 +1450,7 @@ class DespachoPageState extends State<DespachoPage>
       width: 250.0,
       child: ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
-            primary: despachoModel.tipo == conf.COMPRA_TIPO_ENCOMIENDA
+            backgroundColor: despachoModel.tipo == conf.COMPRA_TIPO_ENCOMIENDA
                 ? Colors.green
                 : prs.colorButtonSecondary,
             elevation: 2.0,

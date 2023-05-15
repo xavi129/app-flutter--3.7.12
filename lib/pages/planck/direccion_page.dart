@@ -37,7 +37,7 @@ class DireccionPage extends StatefulWidget {
       this.cajeroModel,
       this.lt,
       this.lg,
-      this.pagina: 0})
+      this.pagina = 0})
       : super(key: key);
 
   @override
@@ -371,7 +371,7 @@ class DireccionPageState extends State<DireccionPage>
               ),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                    primary: prs.colorButtonSecondary,
+                    backgroundColor: prs.colorButtonSecondary,
                     elevation: 2.0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0))),

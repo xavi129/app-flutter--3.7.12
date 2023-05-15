@@ -235,7 +235,7 @@ class UbicacionPageState extends State<UbicacionPage>
               ),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                    primary: prs.colorButtonSecondary,
+                    backgroundColor: prs.colorButtonSecondary,
                     elevation: 2.0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0))),
