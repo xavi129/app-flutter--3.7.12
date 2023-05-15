@@ -157,6 +157,7 @@ class CajeroModel {
     this.lgB = 0.0,
     this.costo = 0.0,
     this.costoEnvio = 0.0,
+    this.costoProducto = 0.0,
     this.calificacionCliente = 5.00,
     this.calificacionCajero = 5.00,
     this.detalle,
@@ -176,6 +177,7 @@ class CajeroModel {
   double credito;
   double creditoProducto;
   double creditoEnvio;
+  double costoProducto;
 
   factory CajeroModel.fromJson(Map<String, dynamic> json) => CajeroModel(
         isTarjeta: json["isTarjeta"] == null
@@ -219,6 +221,9 @@ class CajeroModel {
         calificacionCliente: json["calificacionCliente"] == null
             ? 5.0
             : json["calificacionCliente"].toDouble(),
+        costoProducto: json["costo_producto"] == null
+            ? 0.0
+            : json["costo_producto"].toDouble(),
         detalle: json["detalle"],
         idSucursal: json["id_sucursal"],
         sinLeerCliente: json["sinLeerCliente"],

@@ -139,13 +139,13 @@ class ChatCompraCard extends StatelessWidget {
             (cajeroModel.referencia == 'null')
                 ? Container()
                 : Text(
-                    'Costo total : ${cajeroModel.costo.toStringAsFixed(2)} USD',
+                    'Costo del Pedido: ${cajeroModel.costoProducto.toStringAsFixed(2)} Pesos',
                     style: TextStyle(fontSize: 12, color: Colors.blueGrey)),
             SizedBox(height: 4),
             (cajeroModel.referencia == 'null')
                 ? Text('Para consultar se debe seleccionar una dirección',
                     style: TextStyle(fontSize: 12, color: Colors.blueGrey))
-                : Text('Referencia: ${cajeroModel.referencia}',
+                : Text('Cliente: ${cajeroModel.nombres}',
                     style: TextStyle(fontSize: 12, color: Colors.blueGrey)),
             SizedBox(height: 4),
             _horario(),
@@ -223,7 +223,18 @@ class ChatCompraCard extends StatelessWidget {
     if (!isChatCajero && cajeroModel.idCompraEstado == conf.COMPRA_COMPRADA)
       return Row(
         children: <Widget>[
-          Icon(FontAwesomeIcons.route, color: Colors.green),
+          Icon(FontAwesomeIcons.cookieBite, color: Colors.brown),
+          SizedBox(
+            width: 5.0,
+          )
+        ],
+      );
+
+    if (!isChatCajero && cajeroModel.idCompraEstado == conf.COMPRA_CAMINO)
+      return Row(
+        children: <Widget>[
+          IconAumentWidget(
+              Icon(FontAwesomeIcons.motorcycle, color: Colors.blue)),
           SizedBox(
             width: 5.0,
           )
@@ -234,7 +245,7 @@ class ChatCompraCard extends StatelessWidget {
       return prs.iconoChatActivo;
 
     if (!isChatCajero && cajeroModel.sinLeerCliente > 0)
-      return prs.iconoChatActivo;
+      return Icon(FontAwesomeIcons.motorcycle, color: Colors.green);
 
     if (cajeroModel.idCompraEstado == conf.COMPRA_CANCELADA)
       return prs.iconoCancelada;
@@ -252,7 +263,7 @@ class ChatCompraCard extends StatelessWidget {
       return prs.iconoChat;
 
     if (cajeroModel.idCompraEstado == conf.COMPRA_DESPACHADA)
-      return prs.iconoDespachando;
+      return Icon(FontAwesomeIcons.motorcycle, color: Colors.green);
 
     return prs.iconoCasa;
   }
