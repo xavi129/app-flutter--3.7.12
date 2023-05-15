@@ -67,7 +67,7 @@ String clean(String cadena) {
 
 get headers => {
       "idaplicativo": '${Sistema.idAplicativo}',
-      "vs": "0.0.20",
+      "vs": "0.0.21",
       "idplataforma": Sistema.isAndroid
           ? '1'
           : Sistema.isIOS
