@@ -1,4 +1,0 @@
-#Sun May 14 09:35:17 PDT 2023
-base.0=C\:\\Users\\xavih\\Downloads\\source\\build\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
-renamed.0=classes.dex
-path.0=classes.dex
