@@ -5,13 +5,11 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import '../bloc/cajero_bloc.dart';
 import '../bloc/card_bloc.dart';
 import '../bloc/catalogo_bloc.dart';
-import '../bloc/factura_bloc.dart';
 import '../bloc/promocion_bloc.dart';
 import '../model/cajero_model.dart';
 import '../model/card_model.dart';
 import '../model/catalogo_model.dart';
 import '../model/direccion_model.dart';
-import '../model/factura_model.dart';
 import '../model/hashtag_model.dart';
 import '../model/promocion_model.dart';
 import '../pages/admin/compras_cajero_page.dart';
@@ -36,7 +34,6 @@ import '../utils/dialog.dart' as dlg;
 import '../utils/personalizacion.dart' as prs;
 import '../utils/utils.dart' as utils;
 import '../utils/validar.dart' as val;
-import 'factura_dialog.dart';
 
 class CarritoDialog extends StatefulWidget {
   final double costoTotal;
@@ -81,7 +78,6 @@ class CarritoDialogState extends State<CarritoDialog>
   final DireccionModel direccionSeleccionadaEntrega;
   final PromocionBloc _promocionBloc = PromocionBloc();
   final CajeroBloc _cajeroBloc = CajeroBloc();
-  final _facturaBloc = FacturaBloc();
   final _cardBloc = CardBloc();
   final _cardProvider = CardProvider();
   final CompraProvider compraProvider;
@@ -108,8 +104,6 @@ class CarritoDialogState extends State<CarritoDialog>
     super.initState();
     _controllerMetodoPago.text = _cardBloc.cardSeleccionada.number;
     _inputFieldDateController = TextEditingController(text: '');
-    _facturaBloc.facturaSeleccionada = FacturaModel();
-    _facturaBloc.obtener();
     _cardBloc.cardSeleccionadaStream.listen((CardModel card) {
       descuentoPorCupon = 0.0;
       if (card?.modo.toString().toUpperCase() == Sistema.CUPON.toUpperCase()) {
@@ -204,7 +198,7 @@ class CarritoDialogState extends State<CarritoDialog>
     return TextFormField(
       controller: _inputFieldDateController,
       textCapitalization: TextCapitalization.words,
-      decoration: prs.decoration('Hashtag promocional', prs.iconoCodigo),
+      decoration: prs.decoration('Monto máximo 800 pesos', prs.iconoCodigo),
     );
   }
 
@@ -330,10 +324,10 @@ class CarritoDialogState extends State<CarritoDialog>
           onSelectChanged: (select) {
             return dlg.mostrar(context,
                 'Se descuenta automáticamente para cubrir el costo o parte del costo de entrega.\n\nAl invitar a tus amigos a usar Curiosity tienes mayor probabilidad de obtener money.\n\nVe al Menú, (Insignia & Money) para aprender más.',
-                titulo: 'Curiosity Money');
+                titulo: 'SQ Entregas Money');
           },
           cells: [
-            DataCell(Text('Curiosity Money (Descuento exclusivo)')),
+            DataCell(Text('SQ Entregas Money (Descuento exclusivo)')),
             DataCell(Text('')),
             DataCell(Text('')),
             DataCell(Text(
@@ -347,11 +341,11 @@ class CarritoDialogState extends State<CarritoDialog>
       rows.add(DataRow(
           onSelectChanged: (select) {
             return dlg.mostrar(context,
-                'Tienes ${_pay.toStringAsFixed(2)} USD de Cash.\n\nEste dinero permite pagar productos y envío',
-                titulo: 'Curiosity Cash');
+                'Tienes ${_pay.toStringAsFixed(2)} Pesos de Cash.\n\nEste dinero permite pagar productos y envío',
+                titulo: 'SQ Entregas Cash');
           },
           cells: [
-            DataCell(Text('Curiosity Cash')),
+            DataCell(Text('SQ Entregas Cash')),
             DataCell(Text('')),
             DataCell(Text('')),
             DataCell(Text(
@@ -502,8 +496,6 @@ class CarritoDialogState extends State<CarritoDialog>
                     SizedBox(height: 20.0),
                     _createPanelPago(),
                     _numero(),
-                    SizedBox(height: 10.0),
-                    _facturas(context),
                     SizedBox(height: 10.0),
                     _crearCodigo(),
                   ],
@@ -795,7 +787,6 @@ class CarritoDialogState extends State<CarritoDialog>
     },
         cajero: cajeroModel,
         direccionCliente: direccionSeleccionadaCliente,
-        facturaModel: _facturaBloc.facturaSeleccionada,
         promociones: promocionesAComprar,
         costoTotal: costo + cajeroModel.costoEnvio,
         costo: costo);
@@ -872,55 +863,5 @@ class CarritoDialogState extends State<CarritoDialog>
         keyboardType: TextInputType.number,
         decoration: prs.decoration('Método de pago', prs.iconoMetodoPago,
             suffixIcon: ccBrandIcon));
-  }
-
-  Widget _facturas(BuildContext context) {
-    return StreamBuilder(
-      stream: _facturaBloc.facturaStream,
-      builder:
-          (BuildContext context, AsyncSnapshot<List<FacturaModel>> snapshot) {
-        if (snapshot.hasData) {
-          return createExpanPanel(snapshot.data);
-        } else {
-          return Container(child: Center(child: CircularProgressIndicator()));
-        }
-      },
-    );
-  }
-
-  Widget createExpanPanel(List<FacturaModel> facturas) {
-    return DropdownButtonFormField(
-      isDense: true,
-      decoration: prs.decoration('', prs.iconoFactura),
-      validator: (value) {
-        if (_facturaBloc.facturaSeleccionada.idFactura <= 0)
-          return 'Datos de factura';
-        return null;
-      },
-      hint: (_facturaBloc.facturaSeleccionada.idFactura <= 0)
-          ? Text('Datos de factura')
-          : Text(_facturaBloc.facturaSeleccionada.dni),
-      items: facturas.map((FacturaModel factura) {
-        if (factura.idFactura <= 0)
-          return DropdownMenuItem<FacturaModel>(
-            value: factura,
-            child: Text('Datos de factura'),
-          );
-        return DropdownMenuItem<FacturaModel>(
-          value: factura,
-          child: Text('Facturar a: ${factura.dni}'),
-        );
-      }).toList(),
-      onChanged: (FacturaModel value) {
-        _facturaBloc.facturaSeleccionada = value;
-        if (value.idFactura <= 0)
-          showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (context) {
-                return FacturaDialog(facturaModel: value);
-              });
-      },
-    );
   }
 }

@@ -63,8 +63,8 @@ class FotoPerfilDialogState extends State<FotoPerfilDialog>
                       Container(
                         child: ElevatedButton.icon(
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: prs.colorButtonPrimary,
                                 foregroundColor: prs.colorTextDescription,
+                                backgroundColor: prs.colorButtonPrimary,
                                 elevation: 2.0,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5.0))),
@@ -76,8 +76,8 @@ class FotoPerfilDialogState extends State<FotoPerfilDialog>
                       Container(
                         child: ElevatedButton.icon(
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: prs.colorButtonPrimary,
                                 foregroundColor: prs.colorTextDescription,
+                                backgroundColor: prs.colorButtonPrimary,
                                 elevation: 2.0,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5.0))),

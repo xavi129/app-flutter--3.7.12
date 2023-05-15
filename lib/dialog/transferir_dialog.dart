@@ -77,7 +77,7 @@ class TransferirDialogState extends State<TransferirDialog>
             SizedBox(height: 30.0),
             TouchSpin(
               displayFormat: NumberFormat.currency(
-                  locale: "es_ES", symbol: "USD", decimalDigits: 2),
+                  locale: "es_ES", symbol: "Pesos", decimalDigits: 2),
               value: widget.monto,
               min: 8,
               max: widget.monto,
@@ -98,7 +98,7 @@ class TransferirDialogState extends State<TransferirDialog>
             Padding(
               padding: EdgeInsets.only(left: 20.0, right: 20.0),
               child: Text(
-                'Confirma si deseas transferir ${trasferir.toStringAsFixed(2)} USD',
+                'Confirma si deseas transferir ${trasferir.toStringAsFixed(2)} Pesos',
                 style: TextStyle(color: Colors.redAccent, fontSize: 14.0),
                 textAlign: TextAlign.center,
               ),

@@ -65,8 +65,8 @@ class FotoPromocionDialogState extends State<FotoPromocionDialog>
               padding: EdgeInsets.all(10.0),
               child: ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: prs.colorButtonPrimary,
                       foregroundColor: prs.colorTextDescription,
+                      backgroundColor: prs.colorButtonPrimary,
                       elevation: 2.0,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5.0))),

@@ -19,7 +19,6 @@ import 'pages/planck/about_page.dart';
 import 'pages/planck/contacto_page.dart';
 import 'pages/planck/contrasenia_page.dart';
 import 'pages/planck/direcciones_page.dart';
-import 'pages/planck/facturas_page.dart';
 import 'pages/planck/notificacion_page.dart';
 import 'pages/planck/perfil_page.dart';
 import 'pages/planck/preregistro_page.dart';
@@ -91,7 +90,6 @@ class _MyAppState extends State<MyApp> {
         'registrar': (BuildContext context) => RegistrarPage(),
         'compras_cliente': (BuildContext context) => ComprasClientePage(),
         'direcciones_cliente': (BuildContext context) => DireccionesPage(),
-        'facturas_cliente': (BuildContext context) => FacturasPage(),
         'carrito': (BuildContext context) => CarritoPage(),
         'compras_cajero': (BuildContext context) => ComprasCajeroPage(),
         'compras_despacho': (BuildContext context) => ComprasDespachoPage(),
