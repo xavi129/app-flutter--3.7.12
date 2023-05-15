@@ -13,3 +13,4 @@ build/app/outputs/flutter-apk/app-debug.apk.sha1
 .dart_tool/flutter_build/6ab5d0a4226e3d844d7f6b562b9173f6/armeabi-v7a/app.so
 .dart_tool/flutter_build/6ab5d0a4226e3d844d7f6b562b9173f6/x86_64/app.so
 build/
+.dart_tool/
