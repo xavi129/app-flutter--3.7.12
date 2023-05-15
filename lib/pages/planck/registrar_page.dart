@@ -223,7 +223,7 @@ class _RegistrarPageState extends State<RegistrarPage>
   }
 
   _terminos() {
-    _launchURL('https://www.sqentregas.biz/terminos-y-condiciones');
+    _launchURL('https://www.sqentregas.com/terminos-y-condiciones.html');
   }
 
   _launchURL(url) async {
