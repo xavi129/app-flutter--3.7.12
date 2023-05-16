@@ -168,8 +168,6 @@ class _LoginPageState extends State<LoginPage> {
                             );
                     },
                   ),
-                  rs.buttonGoogle('Continuar con Google', prs.iconoGoogle,
-                      _iniciarSessionGoogle),
                   rs.buttonFacebook('Continuar con Facebook', prs.iconoFacebook,
                       _autenticarFacebook),
                 ],
