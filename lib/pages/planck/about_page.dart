@@ -39,7 +39,7 @@ class _AboutPageState extends State<AboutPage> {
         Expanded(child: SingleChildScrollView(child: _contenido())),
         btn.confirmar('Desarollado por SQ Entregas', () {
           _launchURL(
-              'fb://facewebmodal/f?href=https://www.facebook.com/100083392400030');
+              'https://www.facebook.com/100083392400030');
         }),
       ],
     );
