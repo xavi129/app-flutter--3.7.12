@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 
@@ -34,12 +33,10 @@ class _LoginPageState extends State<LoginPage> {
   ClienteModel cliente = ClienteModel();
   bool _saving = false;
 
-  GoogleSignIn _googleSignIn = GoogleSignIn();
-
   @override
   void initState() {
     super.initState();
-    _escucharLoginGoogle();
+    
   }
 
   @override
@@ -245,56 +242,12 @@ class _LoginPageState extends State<LoginPage> {
       _mostrarSnackBar('Necesitamos información del correo electrónico.');
   }
 
-  void _autenticarGoogle(
-      context, correo, img, idGoogle, nombres, apellidos) async {
-    _saving = true;
-    if (mounted) setState(() {});
-    await rs.autenticarGoogle(context, _googleSignIn, codigoPais, smn, correo,
-        img, idGoogle, nombres, apellidos);
-    _saving = false;
-    if (mounted) if (mounted) setState(() {});
-  }
-
   void _autenticarFacebook() async {
     _saving = true;
     if (mounted) setState(() {});
     await rs.autenticarFacebook(context, codigoPais, smn, (login) {
       _saving = false;
       if (mounted) if (mounted) setState(() {});
-    });
-  }
-
-  Future<void> _iniciarSessionGoogle() async {
-    _saving = true;
-    if (mounted) setState(() {});
-    try {
-      await _googleSignIn.signIn();
-    } catch (err) {
-      print('login_page error: $err');
-    } finally {
-      _saving = false;
-      if (mounted) if (mounted) setState(() {});
-    }
-  }
-
-  _escucharLoginGoogle() {
-    _googleSignIn.onCurrentUserChanged
-        .listen((GoogleSignInAccount currentUser) {
-      if (currentUser != null) {
-        var nombres = currentUser.displayName.split(' ');
-        String nombre = '';
-        if (nombres.length > 0) {
-          nombre = nombres[0];
-        }
-        String apellido = '';
-        if (nombres.length > 1) {
-          for (var i = 1; i < nombres.length; i++) {
-            apellido += nombres[i] + ' ';
-          }
-        }
-        _autenticarGoogle(context, currentUser.email, currentUser.photoUrl,
-            currentUser.id, nombre, apellido);
-      }
     });
   }
 
