@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 
@@ -83,32 +82,7 @@ Future<bool> autenticarApple(
   }
 }
 
-Future<bool> autenticarGoogle(
-    BuildContext context,
-    GoogleSignIn googleSignIn,
-    String codigoPais,
-    String smn,
-    correo,
-    img,
-    idGoogle,
-    nombres,
-    apellidos) async {
-  FocusScope.of(context).requestFocus(FocusNode());
-  await _clienteProvider.autenticarGoogle(
-      codigoPais,
-      smn,
-      correo,
-      img.toString().replaceAll('=s96-c', ''),
-      idGoogle,
-      '$nombres $apellidos',
-      '', (estado, clienteModel) {
-    googleSignIn.signOut();
-    if (estado == 0)
-      return; //En caso de error lo registramos con el formulario lleno;
-    ingresar(context, clienteModel);
-  });
-  return false;
-}
+
 
 ingresar(BuildContext context, ClienteModel clienteModel) {
   if (Sistema.isWeb) {
