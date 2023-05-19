@@ -25,14 +25,68 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>app-1-713717712583-ios-bd1996217f38b92f1fe0e2</string>
 				<string>fb897307411503687</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Permite tomar fotos y enviar por chat</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Siempre y cuando se utilize mostrar restaurantes cercanos</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Siempre que se utilize mostrar restaurantes cercanos</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Permite mostrar restaurantes cercanos a tu ubicacion</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Permite mostrar restaurantes cercanos a tu ubicacion</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Permite enviar audios por chat</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Permite enviar fotos por chat</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Permite usar iMusic</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Permite acceder al calendario</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Permite acceder a contactos</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Permite utilizar bluetooth simpre que se use</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Permite utilizar bluetooth </string>
+	<key>NSMotionUsageDescription</key>
+	<string>Permite acceder a movimiento</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Permite reconocer las palabras dichas</string>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 	<key>FacebookAppID</key>
 	<string>897307411503687</string>
 	<key>FacebookClientToken</key>
@@ -44,41 +98,5 @@
 		<string>fbapi</string>
 		<string>fb-messenger-share-api</string>
 	</array>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<key>NSCameraUsageDescription</key>
-	<string>camera</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Always and when in use!</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Can I have location always?</string>
-	<key>NSLocationUsageDescription</key>
-	<string>Older devices need location.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Need location when in use</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>microphone</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>photos</string>
-	<key>UIApplicationSupportsIndirectInputEvents</key>
-	<true/>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>remote-notification</string>
-	</array>
-	<key>UILaunchStoryboardName</key>
-	<string>Main</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
-	<key>UIStatusBarStyle</key>
-	<string></string>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-		<string>UIInterfaceOrientationPortrait</string>
-	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
 </dict>
 </plist>
