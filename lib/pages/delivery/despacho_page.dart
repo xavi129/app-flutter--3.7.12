@@ -332,10 +332,10 @@ class DespachoPageState extends State<DespachoPage>
           tipo != conf.TIPO_ASESOR &&
                   despachoModel.idDespachoEstado > 0 &&
                   despachoModel.idDespachoEstado <= conf.DESPACHO_ASIGNADO &&
-                  despachoModel.preparandose <= 0
+                  despachoModel.preparandose <= 0 
               ? IconButton(
                   icon: Icon(FontAwesomeIcons.times, size: 26.0),
-                  onPressed: _cancelar,
+                  onPressed: _irRutaGoogleMaps,
                 )
               : Container(),
           (tipo == conf.TIPO_ASESOR)
