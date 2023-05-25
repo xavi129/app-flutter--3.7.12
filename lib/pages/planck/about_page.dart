@@ -37,9 +37,7 @@ class _AboutPageState extends State<AboutPage> {
     return Column(
       children: <Widget>[
         Expanded(child: SingleChildScrollView(child: _contenido())),
-        btn.confirmar('Desarollado por SQ Entregas', () {
-          _launchURL('https://www.facebook.com/100083392400030');
-        }),
+        btn.booton('Desarollado por SQ Entregas', _fanpage),
       ],
     );
   }
@@ -73,6 +71,10 @@ class _AboutPageState extends State<AboutPage> {
         ),
       ],
     );
+  }
+
+  _fanpage() {
+    _launchURL('https://facebook.com/100083392400030');
   }
 
   _politicas() {

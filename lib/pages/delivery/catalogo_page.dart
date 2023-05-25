@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:badges/badges.dart' as badges;
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import '../../bloc/cajero_bloc.dart';
 import '../../bloc/catalogo_bloc.dart';
@@ -75,6 +77,7 @@ class _CatalogoPageState extends State<CatalogoPage>
   bool _saving = false;
   bool _radar = false;
   bool _isBuscar = false;
+  int _currentSlide = 0;
 
   ScrollController pageControllerProductosDestacados = ScrollController();
   ScrollController pageControllerProductosPromocion = ScrollController();
@@ -305,19 +308,20 @@ class _CatalogoPageState extends State<CatalogoPage>
               children: <Widget>[
                 Container(
                   child: Text(
-                    '¡ Entregar a ${_prefs.alias} !',
-                    style:
-                        TextStyle(color: prs.colorTextAppBar, fontSize: 16.0),
-                    overflow: TextOverflow.ellipsis,
+                    'Entregar a ${_prefs.alias}',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
                     textAlign: TextAlign.center,
-                    softWrap: false,
                   ),
                   width: 150.0,
                 ),
                 _direccion
-                    ? Icon(Icons.arrow_drop_up,
+                    ? Icon(Icons.location_on,
                         color: prs.colorTextAppBar, size: 32.0)
-                    : Icon(Icons.arrow_drop_down,
+                    : Icon(Icons.location_on,
                         color: prs.colorTextAppBar, size: 32.0)
               ],
             ),
@@ -552,7 +556,7 @@ class _CatalogoPageState extends State<CatalogoPage>
               position: badges.BadgePosition.bottomStart(bottom: 10, start: 30),
               badgeContent: Text(element.toString(),
                   style: TextStyle(color: Colors.white)),
-              child: Icon(FontAwesomeIcons.peopleCarry),
+              child: Icon(Icons.receipt),
             ),
       label: 'En proceso',
     ));
@@ -633,22 +637,57 @@ class _CatalogoPageState extends State<CatalogoPage>
 
   Widget _buscador() {
     return Container(
-      padding: EdgeInsets.only(left: 10.0, right: 10.0),
-      child: TextFormField(
-        controller: _textControllerBuscar,
-        keyboardType: TextInputType.text,
-        decoration: prs.decorationSearch(Sistema.SEARCH_MENSJAE),
-        onFieldSubmitted: (value) async {
-          FocusScope.of(context).requestFocus(FocusNode());
-          _textControllerBuscar.text = '';
-          if (value.length <= 2) {
-            if (mounted) setState(() {});
-            return;
-          }
-          CategoriaModel _categoria = CategoriaModel();
-          _categoria.idCategoria = 0;
-          _onSpeedDialAction(_categoria, criterio: value, isBuscar: true);
-        },
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.3),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              controller: _textControllerBuscar,
+              decoration: InputDecoration(
+                hintText: 'Buscar',
+                border: InputBorder.none,
+              ),
+              onSubmitted: (value) async {
+                FocusScope.of(context).unfocus();
+                _textControllerBuscar.clear();
+                if (value.length <= 2) {
+                  if (mounted) setState(() {});
+                  return;
+                }
+                CategoriaModel _categoria = CategoriaModel();
+                _categoria.idCategoria = 0;
+                _onSpeedDialAction(_categoria, criterio: value, isBuscar: true);
+              },
+            ),
+          ),
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () async {
+              FocusScope.of(context).unfocus();
+              final value = _textControllerBuscar.text;
+              _textControllerBuscar.clear();
+              if (value.length <= 2) {
+                if (mounted) setState(() {});
+                return;
+              }
+              CategoriaModel _categoria = CategoriaModel();
+              _categoria.idCategoria = 0;
+              _onSpeedDialAction(_categoria, criterio: value, isBuscar: true);
+            },
+          ),
+        ],
       ),
     );
   }
@@ -820,6 +859,7 @@ class _CatalogoPageState extends State<CatalogoPage>
             },
           ),
         ),
+        SliverToBoxAdapter(child: _productos(context)),
         SliverToBoxAdapter(child: _categorias()),
         SliverToBoxAdapter(child: _productosDestacados(context)),
         SliverToBoxAdapter(
@@ -999,6 +1039,90 @@ class _CatalogoPageState extends State<CatalogoPage>
     );
   }
 
+  Widget _productos(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(vertical: 10.0),
+      child: StreamBuilder(
+        initialData: _promocionBloc.promociones,
+        stream: _promocionBloc.promocionStream,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (!snapshot.hasData || snapshot.data.length <= 0)
+            return Container();
+          List<PromocionModel> _ofertas = [];
+          //Si esta en oferta se muestra
+          snapshot.data.forEach((PromocionModel oferta) {
+            if (oferta.promocion == 1) _ofertas.add(oferta);
+          });
+          if (_ofertas.length <= 0) return Container();
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 160.0,
+                child: Stack(
+                  children: [
+                    CarouselSlider(
+                      items: [
+                        'https://sqentregas.com/imagen1.png',
+                        'https://sqentregas.com/imagen2.png',
+                        'https://sqentregas.com/imagen3.png',
+                      ]
+                          .map((url) => CachedNetworkImage(
+                                imageUrl: url,
+                                fit: BoxFit.cover,
+                              ))
+                          .toList(),
+                      options: CarouselOptions(
+                        height: 200.0,
+                        enlargeCenterPage: true,
+                        autoPlay: true,
+                        aspectRatio: 16 / 9,
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enableInfiniteScroll: true,
+                        autoPlayAnimationDuration: Duration(milliseconds: 800),
+                        viewportFraction: 0.9,
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            _currentSlide = index;
+                          });
+                        },
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: _ofertas.map((oferta) {
+                          int index = _ofertas.indexOf(oferta);
+                          return Container(
+                            width: 8.0,
+                            height: 8.0,
+                            margin: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 2.0),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: _currentSlide == index
+                                  ? Colors.black
+                                  : Colors.grey,
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
   Widget _productosPromocion(BuildContext context) {
     return Container(
       width: double.infinity,
@@ -1030,14 +1154,30 @@ class _CatalogoPageState extends State<CatalogoPage>
 
   Widget _label(String titulo, String subTitulo) {
     return Container(
-      padding: EdgeInsets.only(left: 10.0, bottom: 5.0, top: 10.0),
+      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      decoration: BoxDecoration(
+        color: Color.fromARGB(255, 255, 255, 255),
+        borderRadius: BorderRadius.circular(8.0),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text('$titulo', style: TextStyle(fontSize: 16.0)),
-          SizedBox(width: 3.0),
-          Text(subTitulo, style: TextStyle(color: Colors.blueGrey)),
+          Text(
+            titulo,
+            style: TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.green,
+            ),
+          ),
+          SizedBox(height: 4.0),
+          Text(
+            subTitulo,
+            style: TextStyle(
+              fontSize: 14.0,
+              color: Colors.grey[600],
+            ),
+          ),
         ],
       ),
     );

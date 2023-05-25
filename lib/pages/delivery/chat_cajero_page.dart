@@ -6,7 +6,7 @@ import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.da
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:mime_type/mime_type.dart';
+// import 'package:mime_type/mime_type.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -24,7 +24,7 @@ import '../../providers/cajero_provider.dart';
 import '../../providers/chat_compra_provider.dart';
 import '../../providers/cliente_provider.dart';
 import '../../providers/compra_provider.dart';
-import '../../providers/despacho_provider.dart';
+// import '../../providers/despacho_provider.dart';
 import '../../sistema.dart';
 import '../../utils/button.dart' as btn;
 import '../../utils/cache.dart' as cache;
@@ -32,9 +32,9 @@ import '../../utils/compra.dart' as compra;
 import '../../utils/conf.dart' as conf;
 import '../../utils/permisos.dart' as permisos;
 import '../../utils/personalizacion.dart' as prs;
-import '../../utils/upload.dart' as upload;
+// import '../../utils/upload.dart' as upload;
 import '../../utils/utils.dart' as utils;
-import '../../widgets/audio_widget.dart';
+// import '../../widgets/audio_widget.dart';
 import '../../widgets/chat_cajero_widget.dart';
 import '../../widgets/en_linea_widget.dart';
 import '../../widgets/icon_aument_widget.dart';
@@ -51,6 +51,8 @@ class ChatCajeroPage extends StatefulWidget {
       _ChatCajeroPageState(cajeroModel: cajeroModel);
 }
 
+
+
 class _ChatCajeroPageState extends State<ChatCajeroPage>
     with TickerProviderStateMixin, WidgetsBindingObserver {
   final TextEditingController _textController = TextEditingController();
@@ -61,19 +63,20 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
   final CompraProvider _compraProvider = CompraProvider();
   final _clienteProvider = ClienteProvider();
   final _cajeroProvider = CajeroProvider();
-  final _despachoProvider = DespachoProvider();
+  // final _despachoProvider = DespachoProvider();
   final ChatCompraProvider _chatCompraProvider = ChatCompraProvider();
   final PreferenciasUsuario _prefs = PreferenciasUsuario();
   final PushProvider _pushProvider = PushProvider();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   CajeroModel cajeroModel;
 
   double _presupuestoPrecio = 0.0;
   String _presupuestoDetalle = '';
-
+  
+  bool _loading = false;
+  bool _buttonPressed = false;
   StreamController<bool> _cambios;
 
   _ChatCajeroPageState({this.cajeroModel});
@@ -103,6 +106,7 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
       if (internet) {
         _chatCompraBloc.obtener(cajeroModel.idCompra);
       }
+
     });
 
     _pushProvider.chatsCompra.listen((ChatCompraModel chatCompraModel) {
@@ -195,7 +199,8 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
   Widget build(BuildContext context) {
     if (_prefs.clienteModel.perfil == '0')
       return Container(child: Center(child: Text('No autorizado')));
-    return Scaffold(
+    return 
+    Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
         titleSpacing: 0.0,
@@ -219,7 +224,8 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
           (cajeroModel.idCompraEstado == conf.COMPRA_CANCELADA ||
                   cajeroModel.idCompraEstado == conf.COMPRA_ENTREGADA)
               ? Container()
-              : _botonCancelar(),
+              :_botonDespachadores(),
+               _botonCancelar(),
         ],
       ),
       floatingActionButton: _floatingActionButton
@@ -247,7 +253,7 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
       body: ModalProgressHUD(
         color: Colors.black,
         opacity: 0.4,
-        progressIndicator: utils.progressIndicator(_mensaje),
+        
         inAsyncCall: _saving,
         child: Center(
             child: Container(child: _contenido(), width: prs.anchoFormulario)),
@@ -257,6 +263,7 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
 
   bool _saving = false;
   String _mensaje = 'Cargando...';
+
 
   Widget _avatar() {
     if (cajeroModel.celularValidado == 1)
@@ -525,6 +532,165 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
       },
     );
   }
+   
+
+
+
+
+Widget _botonListoParaRecoger() {
+    return ElevatedButton(
+      onPressed: _buttonPressed ? null : () {
+        _enviarListoParaRecoger();
+        setState(() {
+          _buttonPressed = true;
+        });
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.check, color: Colors.white),
+          SizedBox(width: 10),
+          Text(
+            'Listo para recoger',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: _buttonPressed ? Colors.grey : Colors.green,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+      ),
+    );
+  }
+
+//   Widget _botonsListoParaRecoger() {
+//   if (_mostrarContador) {
+//     // Mostrar el contador
+//     return ElevatedButton(
+//       onPressed: null,
+//       style: ElevatedButton.styleFrom(
+//         backgroundColor: Colors.grey,
+//         shape: RoundedRectangleBorder(
+//           borderRadius: BorderRadius.circular(16),
+//         ),
+//         padding: EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+//       ),
+//       child: Text(
+//         _contadorSegundos.toString(),
+//         style: TextStyle(
+//           fontWeight: FontWeight.bold,
+//           fontSize: 18,
+//         ),
+//       ),
+//     );
+//   } else {
+//     // Mostrar el botón normal
+//     return ElevatedButton(
+//       onPressed: () {
+//         showDialog(
+//           context: context,
+//           builder: (BuildContext context) {
+//             return StatefulBuilder(
+//               builder: (BuildContext context, StateSetter setState) {
+//                 return AlertDialog(
+//                   title: Text(
+//                     'Seleccionar tiempo',
+//                     style: TextStyle(
+//                       fontWeight: FontWeight.bold,
+//                       fontSize: 20,
+//                     ),
+//                   ),
+//                   content: Column(
+//                     mainAxisSize: MainAxisSize.min,
+//                     children: [
+//                       SizedBox(height: 16),
+//                       Slider(
+//                         value: _tiempoSeleccionado,
+//                         min: 0,
+//                         max: 10,
+//                         divisions: 10,
+//                         label: _tiempoSeleccionado.round().toString() + ' minutos',
+//                         onChanged: (double value) {
+//                           setState(() {
+//                             _tiempoSeleccionado = value;
+//                           });
+//                         },
+//                       ),
+//                       SizedBox(height: 16),
+//                       Text(
+//                         _tiempoSeleccionado.round().toString() + ' minutos',
+//                         style: TextStyle(fontSize: 18),
+//                       ),
+//                     ],
+//                   ),
+//                   actions: [
+//                     TextButton(
+//                       child: Text(
+//                         'Cancelar',
+//                         style: TextStyle(
+//                           color: Colors.red,
+//                           fontWeight: FontWeight.bold,
+//                           fontSize: 16,
+//                         ),
+//                       ),
+//                       onPressed: () {
+//                         Navigator.of(context).pop();
+//                       },
+//                     ),
+//                     ElevatedButton(
+//                       child: Text(
+//                         'Confirmar',
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.bold,
+//                           fontSize: 16,
+//                         ),
+//                       ),
+//                       onPressed: () {
+//                         Navigator.of(context).pop();
+//                         setState(() {
+//                           _mostrarContador = true;
+//                         });
+//                         Timer.periodic(Duration(seconds: 1), (timer) {
+//                           setState(() {
+//                             _contadorSegundos--;
+//                           });
+//                           if (_contadorSegundos == 0) {
+//                             timer.cancel();
+//                             _enviarListoParaRecoger();
+//                           }
+//                         });
+//                       },
+//                     ),
+//                   ],
+//                 );
+//               },
+//             );
+//           },
+//         );
+//       },
+//       style: ElevatedButton.styleFrom(
+//         backgroundColor: Colors.green,
+//         shape: RoundedRectangleBorder(
+//           borderRadius: BorderRadius.circular(16),
+//         ),
+//         padding: EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+//       ),
+//       child: Text(
+//         'Listo para recoger',
+//         style: TextStyle(
+//           fontWeight: FontWeight.bold,
+//           fontSize: 18,
+//         ),
+//       ),
+//     );
+//   }
+// }
 
   void _cancelar() {
     showDialog(
@@ -562,6 +728,8 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
     );
   }
 
+ 
+
   void _enviarCancelar() async {
     Navigator.pop(context);
     _saving = true;
@@ -582,6 +750,46 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
       ),
     );
   }
+  
+
+ void _enviarListoParaRecoger() async {
+  setState(() {
+    _loading = true;
+  });
+
+  CajeroModel cajero = await _cajeroProvider.marcarListoParaRecoger(
+      cajeroModel, cajeroModel.idCliente, cajeroModel.idCajero, conf.CHAT_ENVIA_CAJERO);
+  cajeroModel = cajero;
+  _comprasCajeroBloc.actualizarPorCajero(cajero);
+  cajeroModel.calificarCajero = 1;
+
+  setState(() {
+    _loading = false;
+  });
+
+  bool _mounted = true;
+  // Mostrar un cuadro de diálogo con el mensaje de éxito
+  if (_mounted) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Operación exitosa'),
+          content: Text('El cajero ha sido marcado como listo para recoger.'),
+          actions: [
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+  
 
   Container _contenido() {
     return Container(
@@ -634,78 +842,21 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
     switch (cajeroModel.idCompraEstado) {
       case conf.COMPRA_COMPRADA:
       case conf.COMPRA_DESPACHADA:
-        return _mapa();
+        return _botonListoParaRecoger();
       case conf.COMPRA_CANCELADA:
       case conf.COMPRA_DESPACHADA:
       case conf.COMPRA_ENTREGADA:
         return _calificar();
       default:
-        return _buildTextComposer();
+        return _botonListoParaRecoger();
     }
   }
 
-  _confirmarGenerarDesacpho() {
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0)),
-            title: Text('Generar despacho'),
-            content: Text('Esto notificará a los despachadores!'),
-            actions: <Widget>[
-              TextButton(
-                child: Text('CANCELAR'),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: prs.colorButtonSecondary,
-                    elevation: 2.0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0))),
-                label: Text('GENERAR'),
-                icon: Icon(FontAwesomeIcons.peopleCarry, size: 18.0),
-                onPressed: _generarDespacho,
-              ),
-            ],
-          );
-        });
-  }
+  
 
-  _generarDespacho() async {
-    Navigator.of(context).pop();
-    _saving = true;
-    if (mounted) setState(() {});
-    DespachoModel despachoModel = DespachoModel(
-        idCompra: cajeroModel.idCompra,
-        ltA: cajeroModel.lt,
-        lgA: cajeroModel.lg,
-        ltB: cajeroModel.ltB,
-        lgB: cajeroModel.lgB,
-        costo: cajeroModel.costo,
-        costoEnvio: cajeroModel.costoEnvio);
-    String desde = cajeroModel.sucursal,
-        hasta = cajeroModel.nombres,
-        detalle = cajeroModel.detalle,
-        referencia = cajeroModel.referencia;
+ 
 
-    cajeroModel.idDespacho = await _despachoProvider.registrar(
-        despachoModel, desde, hasta, detalle, referencia);
-    _saving = false;
-    if (mounted) setState(() {});
-    _verDespacho();
-  }
-
-  Widget _mapa() {
-    if (cajeroModel.idDespacho == -1)
-      return btn.bootonIcon(
-          '¡¡¡ GENERAR DESPACHO !!!',
-          Icon(FontAwesomeIcons.route, color: Colors.red),
-          _confirmarGenerarDesacpho);
-    return btn.bootonIcon('VER UBICACIÓN', prs.iconoRuta, _verDespacho);
-  }
+ 
 
   Widget _botonDespachadores() {
     return IconButton(
@@ -915,135 +1066,85 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
         duration: new Duration(milliseconds: 900), curve: Curves.ease);
   }
 
-  bool _audio = true;
+   bool _audio = true;
 
-  Widget _buildTextComposer() {
-    return Row(
-      children: <Widget>[
-        IconButton(
-          icon: prs.iconoTomarFoto,
-          onPressed: () {
-            _tomarFoto(0);
-          },
-        ),
-        Flexible(
-          child: TextFormField(
-            onChanged: (value) {
-              if (value.length > 0)
-                _audio = false;
-              else
-                _audio = true;
-              if (mounted) setState(() {});
-            },
-            maxLines: null,
-            controller: _textController,
-            textCapitalization: TextCapitalization.sentences,
-            decoration: InputDecoration(
-                suffixIcon: IconButton(
-                  icon: prs.iconoSubirFoto,
-                  onPressed: () {
-                    _tomarFoto(1);
-                  },
-                ),
-                hintText: "Se breve, agilita el proceso. =)"),
-          ),
-        ),
-        _audio
-            ? AudioWidget(_enviarAudio, _onInit, _onFinal, conf.AUDIO_COMPRA)
-            : IconButton(
-                icon: prs.iconoEnviarMensaje,
-                onPressed: () {
-                  final mensaje = _textController.text.trim();
-                  if (mensaje.length <= 1) return;
-                  final ChatCompraModel chatCompraModel = ChatCompraModel(
-                      idCompra: cajeroModel.idCompra.toString(),
-                      envia: conf.CHAT_ENVIA_CAJERO,
-                      mensaje: mensaje,
-                      tipo: conf.CHAT_TIPO_TEXTO,
-                      idClienteRecibe: cajeroModel.idCliente);
-                  _enviarChat(chatCompraModel, null);
-                },
-              ),
-      ],
-    );
-  }
+  
+  // _onInit() {
+  //   _currentValueAudio = 100;
+  //   _subiendoAudio = true;
+  //   if (mounted) setState(() {});
+  // }
 
-  _onInit() {
-    _currentValueAudio = 100;
-    _subiendoAudio = true;
-    if (mounted) setState(() {});
-  }
-
-  _onFinal() {
-    _currentValueAudio = 0;
-    _subiendoAudio = false;
-    if (mounted) setState(() {});
-  }
+  // _onFinal() {
+  //   _currentValueAudio = 0;
+  //   _subiendoAudio = false;
+  //   if (mounted) setState(() {});
+  // }
 
   final picker = ImagePicker();
   final f = new DateFormat('yyyy-MM-dd');
 
-  Future _tomarFoto(int tipo) async {
-    final pickedFile = await picker.pickImage(
-        source: tipo == 1 ? ImageSource.gallery : ImageSource.camera);
-    File _imageFile = File(pickedFile.path);
-    if (_imageFile == null) return _mostrarSnackBar('Foto no tomada');
+  // Future _tomarFoto(int tipo) async {
+  //   final pickedFile = await picker.pickImage(
+  //       source: tipo == 1 ? ImageSource.gallery : ImageSource.camera);
+  //   File _imageFile = File(pickedFile.path);
+  //   if (_imageFile == null) return _mostrarSnackBar('Foto no tomada');
 
-    final mimeType = mime(_imageFile.path).split('/'); //image/
+  //   final mimeType = mime(_imageFile.path).split('/'); //image/
 
-    int tamanio = await _imageFile.length();
-    tamanio = tamanio * 4 ~/ 3000;
+  //   int tamanio = await _imageFile.length();
+  //   tamanio = tamanio * 4 ~/ 3000;
 
-    String nombreImagen =
-        '${_prefs.idCliente}_${DateTime.now().microsecondsSinceEpoch}.${mimeType[1].toString()}';
+  //   String nombreImagen =
+  //       '${_prefs.idCliente}_${DateTime.now().microsecondsSinceEpoch}.${mimeType[1].toString()}';
 
-    _subiendoImagen = true;
-    displayText = '% Subiendo...';
-    _currentValue = 99;
-    _duration = tamanio;
-    if (mounted) setState(() {});
+  //   _subiendoImagen = true;
+  //   displayText = '% Subiendo...';
+  //   _currentValue = 99;
+  //   _duration = tamanio;
+  //   if (mounted) setState(() {});
 
-    String nombre = await upload.subirArchivoMobil(
-        _imageFile, 'compra/$nombreImagen', Sistema.TARGET_WIDTH_CHAT);
+  //   String nombre = await upload.subirArchivoMobil(
+  //       _imageFile, 'compra/$nombreImagen', Sistema.TARGET_WIDTH_CHAT);
 
-    _subiendoImagen = false;
-    _currentValue = 0;
-    if (mounted) setState(() {});
+  //   _subiendoImagen = false;
+  //   _currentValue = 0;
+  //   if (mounted) setState(() {});
 
-    ChatCompraModel chatCompraModel = ChatCompraModel(
-        idCompra: cajeroModel.idCompra.toString(),
-        envia: conf.CHAT_ENVIA_CAJERO,
-        mensaje: nombre,
-        tipo: conf.CHAT_TIPO_IMAGEN,
-        idClienteRecibe: cajeroModel.idCliente);
-    _enviarChat(chatCompraModel, _imageFile);
-  }
+  //   ChatCompraModel chatCompraModel = ChatCompraModel(
+  //       idCompra: cajeroModel.idCompra.toString(),
+  //       envia: conf.CHAT_ENVIA_CAJERO,
+  //       mensaje: nombre,
+  //       tipo: conf.CHAT_TIPO_IMAGEN,
+  //       idClienteRecibe: cajeroModel.idCliente);
+  //   _enviarChat(chatCompraModel, _imageFile);
+  // }
 
-  Future _enviarAudio(int tamanio, String duration, Function subirAudio) async {
-    _subiendoImagen = true;
-    _duration = tamanio * 2 ~/ 100;
-    _currentValue = 99;
-    if (mounted) setState(() {});
+  // Future _enviarAudio(int tamanio, String duration, Function subirAudio) async {
+  //   _subiendoImagen = true;
+  //   _duration = tamanio * 2 ~/ 100;
+  //   _currentValue = 99;
+  //   if (mounted) setState(() {});
 
-    String nombre = await subirAudio();
+  //   String nombre = await subirAudio();
 
-    if (!mounted) return;
-    _subiendoImagen = false;
-    _currentValue = 0;
-    if (mounted) setState(() {});
+  //   if (!mounted) return;
+  //   _subiendoImagen = false;
+  //   _currentValue = 0;
+  //   if (mounted) setState(() {});
 
-    ChatCompraModel chatCompraModel = ChatCompraModel(
-        idCompra: cajeroModel.idCompra.toString(),
-        envia: conf.CHAT_ENVIA_CAJERO,
-        mensaje: nombre,
-        tipo: conf.CHAT_TIPO_AUDIO,
-        valor: duration,
-        idClienteRecibe: cajeroModel.idCliente);
-    _enviarChat(chatCompraModel, null);
-  }
+  //   ChatCompraModel chatCompraModel = ChatCompraModel(
+  //       idCompra: cajeroModel.idCompra.toString(),
+  //       envia: conf.CHAT_ENVIA_CAJERO,
+  //       mensaje: nombre,
+  //       tipo: conf.CHAT_TIPO_AUDIO,
+  //       valor: duration,
+  //       idClienteRecibe: cajeroModel.idCliente);
+  //   _enviarChat(chatCompraModel, null);
+  // }
 
-  _mostrarSnackBar(String mensaje) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(mensaje)));
-  }
-}
+//   _mostrarSnackBar(String mensaje) {
+//     ScaffoldMessenger.of(context)
+//         .showSnackBar(SnackBar(content: Text(mensaje)));
+//   }
+ }

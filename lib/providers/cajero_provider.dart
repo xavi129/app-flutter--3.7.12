@@ -17,6 +17,7 @@ class CajeroProvider {
   final String _urlVerCostoPromocion = 'cajero/ver-costo-promocion';
   final String _urlCancelar = 'cajero/cancelar';
   final String _urlVer = 'cajero/ver';
+  final String _urlListoParaRecoger = 'cajero/listo-para-recoger';
 
   Future<CajeroModel> ver(dynamic idCompra) async {
     final resp = await http.post(Uri.parse(Sistema.dominio + _urlVer),
@@ -36,6 +37,25 @@ class CajeroProvider {
   Future<CajeroModel> cancelar(CajeroModel cajeroModel, dynamic idClienteRecibe,
       dynamic idClienteEnvia, int envia) async {
     final resp = await http.post(Uri.parse(Sistema.dominio + _urlCancelar),
+        headers: utils.headers,
+        body: {
+          'idCliente': _prefs.idCliente,
+          'envia': envia.toString(),
+          'idClienteRecibe': idClienteRecibe.toString(),
+          'idClienteEnvia': idClienteEnvia.toString(),
+          'idCompra': cajeroModel.idCompra.toString(),
+          'auth': _prefs.auth,
+        });
+    Map<String, dynamic> decodedResp = json.decode(resp.body);
+    if (decodedResp['estado'] == 1) {
+      return CajeroModel.fromJson(decodedResp['cajero']);
+    }
+    return null;
+  }
+
+  Future<CajeroModel> marcarListoParaRecoger(CajeroModel cajeroModel, dynamic idClienteRecibe,
+      dynamic idClienteEnvia, int envia) async {
+    final resp = await http.post(Uri.parse(Sistema.dominio + _urlListoParaRecoger),
         headers: utils.headers,
         body: {
           'idCliente': _prefs.idCliente,

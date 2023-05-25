@@ -86,7 +86,7 @@ class CarritoDialogState extends State<CarritoDialog>
   final HashtagProvider _hashtagProvider = HashtagProvider();
   final ClienteProvider _clienteProvider = ClienteProvider();
   String _celular = '';
-
+ 
   CarritoDialogState(this.tipo,
       {this.promocion,
       this.costoTotal,
@@ -127,7 +127,7 @@ class CarritoDialogState extends State<CarritoDialog>
       }
     }
   }
-
+  
   _agregarFormaPagoCajero(CardModel card) {
     cajeros.forEach((cajero) {
       cajero.cardModel = card;
@@ -269,7 +269,7 @@ class CarritoDialogState extends State<CarritoDialog>
   List<String> _compraEnvio = [];
   List<String> _compraDetalle = [];
   double _pay = 0.0;
-
+  
   Future<List<DataRow>> _costoProductos(List<CajeroModel> cajeros) async {
     // _isEfectivo = _controllerMetodoPago.text == Sistema.efectivo;
     List<PromocionModel> promocionesAComprar;
@@ -318,6 +318,7 @@ class CarritoDialogState extends State<CarritoDialog>
 
       _moneyDescontado = _moneyDescontado + cajero.descontado;
     }
+    
 
     if (_moneyDescontado > 0) {
       rows.add(DataRow(
@@ -467,13 +468,63 @@ class CarritoDialogState extends State<CarritoDialog>
   }
 
   _comprar() {
-    final String codigo = _inputFieldDateController.text;
-    _inputFieldDateController.text = '';
-    if (codigo.length > 0)
-      _canjer(codigo);
-    else
+  final String codigo = _inputFieldDateController.text;
+  _inputFieldDateController.text = '';
+  if (codigo.length > 0) {
+    _canjer(codigo);
+  } else {
+    if (costoTotal > 800) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              'Error',
+              style: TextStyle(
+                color: Colors.red,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'El maximo permitido para pagos en efectivo es de \$800.00',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                  ),
+                ),
+                SizedBox(height: 16.0),
+                TextButton(
+                  child: Text(
+                    'OK',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.red),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            backgroundColor: Colors.white,
+            elevation: 8.0,
+          );
+        },
+      );
+    } else {
       relizarCompra();
+    }
   }
+}
 
   Widget _body() {
     return Column(
@@ -662,7 +713,7 @@ class CarritoDialogState extends State<CarritoDialog>
       _confirmarRelizarCompra();
     }
   }
-
+ 
   _agregarDescuentosYconfirmarCompra() {
     //Asignamos cash en cero para no evaluar en el bucle el credito peusto  esto se hace un recargo al final total con l a tarjeta
     double _auxCash = _cardBloc.cardSeleccionada.isTarjeta() ? 0.0 : _pay;

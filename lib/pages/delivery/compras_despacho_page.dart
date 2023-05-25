@@ -268,7 +268,7 @@ class _ComprasDespachoPageState extends State<ComprasDespachoPage>
       onRefresh: () => _comprasDespachoBloc.listarCompras(
           _selectedIndex, _dateTime.toString()),
       child: ListView.builder(
-        itemCount: snapshot.data.length,
+        itemCount: 1,
         itemBuilder: (BuildContext context, int index) {
           return ChatDespachoCard(
               despachoModel: snapshot.data[index],

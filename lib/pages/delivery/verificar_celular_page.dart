@@ -136,34 +136,6 @@ class _VerificarCelularPageState extends State<VerificarCelularPage> {
                         },
                       ),
                       SizedBox(height: 10.0),
-                      Visibility(
-                        visible: prefs.solicitados >= 1,
-                        child: TextButton(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text('¿Aún no recibes el código? '),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Text('Te llamaremos ',
-                                      style: TextStyle(color: Colors.indigo)),
-                                  Icon(Icons.phone_in_talk,
-                                      color: Colors.indigo),
-                                  Text(' ¡Confirmar!',
-                                      style: TextStyle(color: Colors.indigo)),
-                                ],
-                              )
-                            ],
-                          ),
-                          onPressed: () {
-                            prefs.solicitados = 0;
-                            prefs.sms = '';
-                            accionConfirmacion();
-                          },
-                        ),
-                      )
                     ],
                   )
           ],

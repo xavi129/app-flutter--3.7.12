@@ -249,7 +249,7 @@ class PreferenciasUsuario {
   }
 
   get simCountryCode {
-    return _prefs.getString('simCountryCode') ?? 'EC';
+    return _prefs.getString('simCountryCode') ?? 'MX';
   }
 
   set simCountryCode(String value) {

@@ -34,6 +34,7 @@ class _ComprasCajeroPageState extends State<ComprasCajeroPage>
   final PreferenciasUsuario _prefs = PreferenciasUsuario();
   final PushProvider _pushProvider = PushProvider();
 
+
   bool _saving = false;
   StreamController<bool> _cambios = StreamController<bool>.broadcast();
 
@@ -51,6 +52,7 @@ class _ComprasCajeroPageState extends State<ComprasCajeroPage>
         _comprasCajeroBloc.listarCompras(_selectedIndex, _dateTime.toString());
       }
       _init = true;
+     
     });
 
     Conexion();

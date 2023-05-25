@@ -51,7 +51,7 @@ get colorButtonBackground => hexToColor('#FBF9F7');
 
 get colorButtonSecondary => hexToColor(colorSecondary);
 
-get colorButtonPrimary => hexToColor('#FFFFFF');
+get colorButtonPrimary => hexToColor('#FBF9F7');
 
 get colorTextButtonPrimary => hexToColor(colorSecondary);
 
@@ -67,7 +67,7 @@ get colorTextDescription => hexToColor('#212A37');
 
 get colorTextInputLabel => hexToColor(colorSecondary);
 
-get colorLineBorder => hexToColor('#DDDDDD');
+get colorLineBorder => hexToColor('#FFFFFF');
 
 get colorIcons => hexToColor(colorSecondary);
 
