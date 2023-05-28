@@ -255,68 +255,68 @@ class DespachoPageState extends State<DespachoPage>
     }
   }
 
-  void _cancelar() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-          title: Text('CANCELAR COMPRA'),
-          content: SingleChildScrollView(
-              child: Center(
-            child: Text('¿Seguro deseas cancelar la compra?',
-                style: TextStyle(fontSize: 20)),
-          )),
-          actions: <Widget>[
-            TextButton(
-              child: Text('NO, REGRESAR'),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: prs.colorButtonSecondary,
-                  elevation: 2.0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0))),
-              label: Text('SI, CANCELAR'),
-              icon: Icon(Icons.cancel, size: 18.0),
-              onPressed: () {
-                _enviarCancelar();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+  // void _cancelar() {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) {
+  //       return AlertDialog(
+  //         shape:
+  //             RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+  //         title: Text('CANCELAR COMPRA'),
+  //         content: SingleChildScrollView(
+  //             child: Center(
+  //           child: Text('¿Seguro deseas cancelar la compra?',
+  //               style: TextStyle(fontSize: 20)),
+  //         )),
+  //         actions: <Widget>[
+  //           TextButton(
+  //             child: Text('NO, REGRESAR'),
+  //             onPressed: () => Navigator.of(context).pop(),
+  //           ),
+  //           ElevatedButton.icon(
+  //             style: ElevatedButton.styleFrom(
+  //                 backgroundColor: prs.colorButtonSecondary,
+  //                 elevation: 2.0,
+  //                 shape: RoundedRectangleBorder(
+  //                     borderRadius: BorderRadius.circular(20.0))),
+  //             label: Text('SI, CANCELAR'),
+  //             icon: Icon(Icons.cancel, size: 18.0),
+  //             onPressed: () {
+  //               _enviarCancelar();
+  //             },
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
-  void _enviarCancelar() async {
-    Navigator.pop(context);
-    _saving = true;
-    if (mounted) setState(() {});
+  // void _enviarCancelar() async {
+  //   Navigator.pop(context);
+  //   _saving = true;
+  //   if (mounted) setState(() {});
 
-    int _chatEnvia = conf.CHAT_ENVIA_CAJERO;
-    var route;
-    if (tipo == conf.TIPO_CLIENTE) {
-      _chatEnvia = conf.CHAT_ENVIA_CLIENTE;
-      cajeroModel.idCompraEstado = conf.COMPRA_CANCELADA;
-      route = CalificacioncompraPage(cajeroModel: cajeroModel, tipo: tipo);
-      CajeroModel cajero = await _cajeroProvider.cancelar(
-          cajeroModel, cajeroModel.idCliente, cajeroModel.idCajero, _chatEnvia);
-      cajeroModel = cajero;
-      cajeroModel.calificarCajero = 1;
-    } else {
-      despachoModel.idDespachoEstado = conf.DESPACHO_CANCELADA;
-      route = CalificaciondespachoPage(despachoModel: despachoModel);
-      await _despachoProvider.cancelar(despachoModel, despachoModel.idCliente,
-          despachoModel.idConductor, tipo);
-    }
+  //   int _chatEnvia = conf.CHAT_ENVIA_CAJERO;
+  //   var route;
+  //   if (tipo == conf.TIPO_CLIENTE) {
+  //     _chatEnvia = conf.CHAT_ENVIA_CLIENTE;
+  //     cajeroModel.idCompraEstado = conf.COMPRA_CANCELADA;
+  //     route = CalificacioncompraPage(cajeroModel: cajeroModel, tipo: tipo);
+  //     CajeroModel cajero = await _cajeroProvider.cancelar(
+  //         cajeroModel, cajeroModel.idCliente, cajeroModel.idCajero, _chatEnvia);
+  //     cajeroModel = cajero;
+  //     cajeroModel.calificarCajero = 1;
+  //   } else {
+  //     despachoModel.idDespachoEstado = conf.DESPACHO_CANCELADA;
+  //     route = CalificaciondespachoPage(despachoModel: despachoModel);
+  //     await _despachoProvider.cancelar(despachoModel, despachoModel.idCliente,
+  //         despachoModel.idConductor, tipo);
+  //   }
 
-    _saving = false;
+  //   _saving = false;
 
-    Navigator.push(context, MaterialPageRoute(builder: (context) => route));
-  }
+  //   Navigator.push(context, MaterialPageRoute(builder: (context) => route));
+  // }
 
   @override
   Widget build(BuildContext context) {

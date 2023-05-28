@@ -45,6 +45,8 @@ class ClienteProvider {
 
   final String _urlSaldo = 'saldo/ver';
 
+  final String _urlEliminarCuenta = 'cliente/eliminar-cuenta';
+
   urbe(dynamic idUrbe) async {
     var client = http.Client();
     try {
@@ -284,6 +286,26 @@ class ClienteProvider {
       client.close();
     }
   }
+  
+  eliminarPerfil(Function response) async {
+    var client = http.Client();
+    try {
+      final resp = await client.post(Uri.parse(Sistema.dominio + _urlEliminarCuenta),
+          headers: utils.headers,
+          body: {
+            'idCliente': _prefs.idCliente,
+            'auth': _prefs.auth,
+          });
+      Map<String, dynamic> decodedResp = json.decode(resp.body);
+      if (decodedResp['estado'] == 1)  return response(1, decodedResp['error']);
+      return response(0, decodedResp['error']);
+    } catch (err) {
+      print('cliente_provider error: $err');
+    } finally {
+      client.close();
+    }
+  }
+  
 
   Future<List<SessionModel>> listarSessiones() async {
     var client = http.Client();

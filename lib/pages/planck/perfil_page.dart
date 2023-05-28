@@ -97,8 +97,58 @@ class _PerfilPageState extends State<PerfilPage> {
       children: <Widget>[
         Expanded(child: SingleChildScrollView(child: _contenido())),
         Visibility(
-            visible: !_prefs.isExplorar,
-            child: btn.booton('GUARDAR CAMBIOS', _guardarCambios))
+          visible: !_prefs.isExplorar,
+          child: Column(
+            children: [
+              btn.booton('GUARDAR CAMBIOS', _guardarCambios),
+              ElevatedButton(
+  onPressed: () {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Eliminar perfil'),
+          content: Text('¿Estás seguro de que deseas eliminar tu perfil?'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Eliminar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _clienteProvider.eliminarPerfil((estado, error) {
+                      if (estado == 1) {
+                        return Navigator.of(context)
+      .pushNamedAndRemoveUntil('principal', (Route<dynamic> route) => false);
+                      } else {
+                        utils.mostrarSnackBar(context, error,
+                            milliseconds: 2500);
+                        Navigator.of(context).pop();
+                        Navigator.pop(context);
+                      }
+                    });
+              },
+            ),
+          ],
+        );
+      },
+    );
+  },
+  child: Text(
+    'Eliminar perfil',
+    style: TextStyle(color: Colors.white),
+  ),
+  style: ElevatedButton.styleFrom(
+    backgroundColor: Colors.red,
+  ),
+)
+            ],
+          ),
+        ),
       ],
     );
   }
@@ -217,8 +267,6 @@ class _PerfilPageState extends State<PerfilPage> {
                   },
                 ),
                 SizedBox(height: 20.0),
-                _crearFecha(context),
-                SizedBox(height: 20.0),
                 _crearPassword(),
               ],
             ),
@@ -272,35 +320,10 @@ class _PerfilPageState extends State<PerfilPage> {
         validator: val.validarCorreo);
   }
 
-  Widget _crearFecha(BuildContext context) {
-    return TextField(
-      enableInteractiveSelection: false,
-      controller: _inputFieldDateController,
-      decoration: prs.decoration('Fecha de nacimiento',
-          Icon(Icons.calendar_today, color: prs.colorIcons)),
-      onTap: () {
-        FocusScope.of(context).requestFocus(new FocusNode());
-        _selectDate(context);
-      },
-    );
-  }
+
 
   final f = new DateFormat('yyyy-MM-dd');
 
-  _selectDate(BuildContext context) async {
-    DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(1940),
-        lastDate: DateTime.now(),
-        locale: Locale('es', 'ES'));
-    if (picked != null) {
-      setState(() {
-        _cliente.fechaNacimiento = f.format(picked);
-        _inputFieldDateController.text = f.format(picked);
-      });
-    }
-  }
 
   Widget _crearPassword() {
     return TextFormField(
@@ -362,3 +385,5 @@ class _PerfilPageState extends State<PerfilPage> {
     });
   }
 }
+
+

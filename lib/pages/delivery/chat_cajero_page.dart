@@ -75,7 +75,6 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
   double _presupuestoPrecio = 0.0;
   String _presupuestoDetalle = '';
   
-  bool _loading = false;
   bool _buttonPressed = false;
   StreamController<bool> _cambios;
 
@@ -262,7 +261,6 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
   }
 
   bool _saving = false;
-  String _mensaje = 'Cargando...';
 
 
   Widget _avatar() {
@@ -733,7 +731,6 @@ Widget _botonListoParaRecoger() {
   void _enviarCancelar() async {
     Navigator.pop(context);
     _saving = true;
-    _mensaje = 'Cancelando...';
     if (mounted) setState(() {});
     CajeroModel cajero = await _cajeroProvider.cancelar(cajeroModel,
         cajeroModel.idCliente, cajeroModel.idCajero, conf.CHAT_ENVIA_CAJERO);
@@ -754,7 +751,6 @@ Widget _botonListoParaRecoger() {
 
  void _enviarListoParaRecoger() async {
   setState(() {
-    _loading = true;
   });
 
   CajeroModel cajero = await _cajeroProvider.marcarListoParaRecoger(
@@ -764,7 +760,6 @@ Widget _botonListoParaRecoger() {
   cajeroModel.calificarCajero = 1;
 
   setState(() {
-    _loading = false;
   });
 
   bool _mounted = true;
@@ -1060,13 +1055,11 @@ Widget _botonListoParaRecoger() {
       }
     });
     setState(() {
-      _audio = true;
     });
     _pageController.animateTo(0,
         duration: new Duration(milliseconds: 900), curve: Curves.ease);
   }
 
-   bool _audio = true;
 
   
   // _onInit() {
