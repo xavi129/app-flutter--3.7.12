@@ -534,14 +534,39 @@ class _ChatCajeroPageState extends State<ChatCajeroPage>
 
 
 
-
 Widget _botonListoParaRecoger() {
-    return ElevatedButton(
+  return SizedBox(
+    height: 60,
+    width: 230,
+    child: ElevatedButton(
       onPressed: _buttonPressed ? null : () {
-        _enviarListoParaRecoger();
-        setState(() {
-          _buttonPressed = true;
-        });
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Confirmar'),
+              content: Text('¿Está seguro de que desea marcar como listo para recoger?'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Cancelar'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    _enviarListoParaRecoger();
+                    setState(() {
+                      _buttonPressed = true;
+                    });
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Aceptar'),
+                ),
+              ],
+            );
+          },
+        );
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -564,8 +589,41 @@ Widget _botonListoParaRecoger() {
           borderRadius: BorderRadius.circular(20),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
+
+
+  Widget botonListoParaRecoger() {
+  return SizedBox(
+    height: 50,
+    width: 230,
+    child: ElevatedButton(
+      onPressed: null,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.check, color: Colors.white),
+          SizedBox(width: 10),
+          Text(
+            'Listo para recoger',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.grey,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+      ),
+    ),
+  );
+}
 
 //   Widget _botonsListoParaRecoger() {
 //   if (_mostrarContador) {
@@ -836,14 +894,12 @@ Widget _botonListoParaRecoger() {
   Widget _pie() {
     switch (cajeroModel.idCompraEstado) {
       case conf.COMPRA_COMPRADA:
-      case conf.COMPRA_DESPACHADA:
         return _botonListoParaRecoger();
       case conf.COMPRA_CANCELADA:
-      case conf.COMPRA_DESPACHADA:
       case conf.COMPRA_ENTREGADA:
         return _calificar();
       default:
-        return _botonListoParaRecoger();
+        return botonListoParaRecoger();
     }
   }
 
@@ -918,6 +974,12 @@ Widget _botonListoParaRecoger() {
     if (cajeroModel.calificarCajero == 2)
       return btn.booton('CALIFICAR COMPRA', _calificarCompra);
     return btn.booton('FINALIZAR COMPRA', _finalizarCompra);
+  }
+
+  Widget _listo() {
+    if (cajeroModel.idCompraEstado == 2)
+      return btn.booton('LISTO PARA RECOGER',_enviarListoParaRecoger);
+    return btn.booton('LISTO PARA RECOGER', _enviarListoParaRecoger);
   }
 
   final ScrollController _pageController = ScrollController();

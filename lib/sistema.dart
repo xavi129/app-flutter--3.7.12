@@ -52,8 +52,8 @@ class Sistema {
   static const aplicativoCuriosity = 'SQ Entregas';
   static const idAplicativoCuriosity = 1000001;
   static const aplicativoTitleCuriosity = 'SQ Entregas';
-  static const packageNameCuriosity = 'com.SQ.Entregas';
-  static const appStoreIdCuriosity = '1488624281';
+  static const packageNameCuriosity = 'com.sq.entregas';
+  static const appStoreIdCuriosity = '6449262863';
   static const uriDynamicCuriosity = 'https://comer.page.link/web';
   static const double lt = 30.5774366;
   static const double lg = -115.9459816;
