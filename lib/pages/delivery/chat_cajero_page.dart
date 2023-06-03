@@ -976,11 +976,7 @@ Widget _botonListoParaRecoger() {
     return btn.booton('FINALIZAR COMPRA', _finalizarCompra);
   }
 
-  Widget _listo() {
-    if (cajeroModel.idCompraEstado == 2)
-      return btn.booton('LISTO PARA RECOGER',_enviarListoParaRecoger);
-    return btn.booton('LISTO PARA RECOGER', _enviarListoParaRecoger);
-  }
+  
 
   final ScrollController _pageController = ScrollController();
 
