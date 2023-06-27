@@ -226,21 +226,21 @@ class _ComprarPromoWidgetState extends State<ComprarPromoWidget> {
           child: Stack(
             children: [
               Container(
-  decoration: BoxDecoration(
-    border: Border.all(
-      color: Colors.white,
-      width: 2,
-    ),
-    borderRadius: BorderRadius.circular(10),
-  ),
-  child: Container(
-    width: 200,
-    height: 37,
-    color: Colors.white,
-  ), 
-),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Container(
+                  width: 200,
+                  height: 37,
+                  color: Colors.white,
+                ), 
+              ),
               Text(
-                'Sin repartidores Disponibles',
+                'Sin repartidores',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 16.0,
