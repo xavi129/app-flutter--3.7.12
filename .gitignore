@@ -14,3 +14,11 @@ build/app/outputs/flutter-apk/app-debug.apk.sha1
 .dart_tool/flutter_build/6ab5d0a4226e3d844d7f6b562b9173f6/x86_64/app.so
 build/
 .dart_tool/
+android/.gradle/file-system.probe
+android/.gradle/7.4/executionHistory/executionHistory.bin
+android/.gradle/7.4/executionHistory/executionHistory.lock
+android/.gradle/7.4/fileHashes/fileHashes.bin
+android/.gradle/7.4/fileHashes/fileHashes.lock
+android/.gradle/7.4/fileHashes/resourceHashesCache.bin
+android/.gradle/buildOutputCleanup/buildOutputCleanup.lock
+.flutter-plugins-dependencies
