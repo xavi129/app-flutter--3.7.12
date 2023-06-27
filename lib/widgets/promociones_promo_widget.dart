@@ -12,6 +12,7 @@ import '../utils/cache.dart' as cache;
 import '../utils/dialog.dart' as dlg;
 import '../utils/personalizacion.dart' as prs;
 import '../utils/utils.dart' as utils;
+import '../../preference/shared_preferences.dart';
 
 class PromocionesPromoWidget extends StatefulWidget {
   final PromocionModel promocion;
@@ -31,6 +32,7 @@ class PromocionesPromoWidget extends StatefulWidget {
 class _PromocionesPromoWidgetState extends State<PromocionesPromoWidget> {
   final PromocionBloc _promocionBloc = PromocionBloc();
   final CatalogoBloc _catalogoBloc = CatalogoBloc();
+  final PreferenciasUsuario _prefs = PreferenciasUsuario();
 
   @override
   void initState() {
@@ -105,7 +107,7 @@ class _PromocionesPromoWidgetState extends State<PromocionesPromoWidget> {
                   return;
                 }
 
-                if (widget.catalogoModel.abiero == '1') {
+                if (widget.catalogoModel.abiero == '1' && _prefs.control == '1') {
                   if (promocion.productos != null &&
                       promocion.productos.lP != null &&
                       promocion.productos.lP.length > 0) {
@@ -129,7 +131,8 @@ class _PromocionesPromoWidgetState extends State<PromocionesPromoWidget> {
                   }
                 } else {
                   dlg.mostrar(context, widget.catalogoModel.abiero,
-                      titulo: 'Local cerrado');
+                      titulo: 'No disponible en este momento');
+
                 }
               },
             ),

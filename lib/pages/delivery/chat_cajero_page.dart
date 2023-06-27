@@ -595,30 +595,32 @@ Widget _botonListoParaRecoger() {
 
 
   Widget botonListoParaRecoger() {
-  return SizedBox(
-    height: 50,
-    width: 230,
-    child: ElevatedButton(
-      onPressed: null,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.check, color: Colors.white),
-          SizedBox(width: 10),
-          Text(
-            'Listo para recoger',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
+  return SafeArea(
+    child: SizedBox(
+      height: 50,
+      width: 230,
+      child: ElevatedButton(
+        onPressed: null,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.check, color: Colors.white),
+            SizedBox(width: 10),
+            Text(
+              'Listo para recoger',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ),
+          ],
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.grey,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
           ),
-        ],
-      ),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.grey,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
         ),
       ),
     ),
@@ -976,7 +978,7 @@ Widget _botonListoParaRecoger() {
     return btn.booton('FINALIZAR COMPRA', _finalizarCompra);
   }
 
-  
+
 
   final ScrollController _pageController = ScrollController();
 

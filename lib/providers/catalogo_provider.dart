@@ -17,6 +17,7 @@ class CatalogoProvider {
   final String _urlVer = 'catalogo/ver';
   final String _urlLike = 'catalogo/like';
   final String _urlReferido = 'catalogo/referido';
+  final String _controlador = 'catalogo/urbe';
 
   Future<bool> like(CatalogoModel catalogoModel,
       {bool isShare = false, dynamic idP = '0'}) async {
@@ -160,4 +161,24 @@ class CatalogoProvider {
     if (promocionesResponse.length <= 0) _cargando = true;
     return response(promocionesResponse, total);
   }
+
+  
+   controlador(dynamic idUrbe) async {
+  var client = http.Client();
+  try {
+    final response = await client.post(Uri.parse(Sistema.dominio + _controlador),
+        headers: utils.headers,
+        body: {
+          'idCliente': _prefs.idCliente,
+          'idUrbe': idUrbe.toString(),
+          'auth': _prefs.auth,
+        });
+        return response.body.toString();
+  } catch (err) {
+    print('cliente_provider error: $err');
+    rethrow;
+  } finally {
+    client.close();
+  }
+}
 }

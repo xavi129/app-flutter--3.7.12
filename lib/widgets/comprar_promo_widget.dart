@@ -9,6 +9,7 @@ import '../utils/cache.dart' as cache;
 import '../utils/dialog.dart' as dlg;
 import '../utils/personalizacion.dart' as prs;
 import '../utils/utils.dart' as utils;
+import '../../preference/shared_preferences.dart';
 
 class ComprarPromoWidget extends StatefulWidget {
   final ScrollController pageController;
@@ -26,9 +27,10 @@ class ComprarPromoWidget extends StatefulWidget {
 class _ComprarPromoWidgetState extends State<ComprarPromoWidget> {
   final PromocionBloc _promocionBloc = PromocionBloc();
   final CatalogoBloc _catalogoBloc = CatalogoBloc();
+  final PreferenciasUsuario _prefs = PreferenciasUsuario();
   bool _inicio = true;
   bool _final = false;
-
+ PromocionModel promocionModel  = PromocionModel();
   @override
   Widget build(BuildContext context) {
     bool _auxFinal = false;
@@ -105,6 +107,12 @@ class _ComprarPromoWidgetState extends State<ComprarPromoWidget> {
                 if (promocion.estado <= 0) {
                   return dlg.mostrar(context, promocion.mensaje);
                 }
+                
+               if (_prefs.control == '0' &&
+                    promocion.estado == 1 ) {
+                 return dlg.mostrar(context, 'Sin repartidores disponibles en este momento');
+                }
+
 
                 if (promocion.productos != null &&
                     promocion.productos.lP != null &&
@@ -152,7 +160,8 @@ class _ComprarPromoWidgetState extends State<ComprarPromoWidget> {
               ),
             ),
             etiqueta(context, promocion),
-            cerrado(context, promocion),
+            if (promocion.estado == 0) cerrado(context, promocion),
+            if (promocion.estado >= 1 && _prefs.control == '0') sinrep(context, promocion),
           ],
         ),
         Expanded(
@@ -195,8 +204,60 @@ class _ComprarPromoWidgetState extends State<ComprarPromoWidget> {
   }
 }
 
+  Widget sinrep(BuildContext context, PromocionModel promocion) {
+  return Positioned(
+    top: 0.0,
+    left: 0.0,
+    right: 0.0,
+    bottom: 0.0,
+    child: Container(
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.5),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        border: Border.all(
+          color: Colors.white,
+          width: 1.0,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Align(
+          alignment: Alignment.center,
+          child: Stack(
+            children: [
+              Container(
+  decoration: BoxDecoration(
+    border: Border.all(
+      color: Colors.white,
+      width: 2,
+    ),
+    borderRadius: BorderRadius.circular(10),
+  ),
+  child: Container(
+    width: 200,
+    height: 37,
+    color: Colors.white,
+  ), 
+),
+              Text(
+                'Sin repartidores Disponibles',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16.0,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+
+
 Widget etiqueta(BuildContext context, PromocionModel promocionModel) {
-  if (promocionModel.incentivo == '') return Container();
   return Positioned(
     bottom: 10.0,
     left: 0,
@@ -222,30 +283,49 @@ Widget etiqueta(BuildContext context, PromocionModel promocionModel) {
   );
 }
 
+
+
+
 Widget cerrado(BuildContext context, PromocionModel promocion) {
-  if (promocion.estado > 0) return Container();
   return Positioned(
-    top: 10.0,
-    left: -55,
-    child: Transform.rotate(
-      alignment: FractionalOffset.center,
-      angle: 345.0,
-      child: Container(
-        height: 40.0,
-        width: 200.0,
-        decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.8),
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Text(promocion.mensaje,
-                style: TextStyle(color: Colors.white),
-                textAlign: TextAlign.center),
-          ],
+    top: 0.0,
+    left: 0.0,
+    right: 0.0,
+    bottom: 0.0,
+    child: Container(
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.5),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Align(
+          alignment: Alignment.center,
+          child: Stack(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Container(
+                  width: 200,
+                  height: 37,
+                  color: Colors.transparent,
+                ),
+              ),
+              Text(
+                promocion.mensaje,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.0,
+                  backgroundColor: Colors.transparent,
+                  fontWeight: FontWeight.bold,
+                   // Establece la alineación del texto en el centro
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
         ),
       ),
     ),

@@ -26,6 +26,7 @@ import '../../model/promocion_model.dart';
 import '../../preference/deep_link.dart';
 import '../../preference/push_provider.dart';
 import '../../preference/shared_preferences.dart';
+import '../../providers/catalogo_provider.dart';
 import '../../providers/categoria_provider.dart';
 import '../../providers/cliente_provider.dart';
 import '../../sistema.dart';
@@ -70,6 +71,7 @@ class _CatalogoPageState extends State<CatalogoPage>
   final PromocionBloc _promocionBloc = PromocionBloc();
   final PushProvider _pushProvider = PushProvider();
   final CategoriaProvider _categoriaProvider = CategoriaProvider();
+ final CatalogoProvider _catalogoProvider = CatalogoProvider();
   final PreferenciasUsuario _prefs = PreferenciasUsuario();
   final TextEditingController _typeControllerDireccion =
       TextEditingController();
@@ -77,7 +79,6 @@ class _CatalogoPageState extends State<CatalogoPage>
   bool _saving = false;
   bool _radar = false;
   bool _isBuscar = false;
-  int _currentSlide = 0;
 
   ScrollController pageControllerProductosDestacados = ScrollController();
   ScrollController pageControllerProductosPromocion = ScrollController();
@@ -118,6 +119,7 @@ class _CatalogoPageState extends State<CatalogoPage>
       _direccionBloc.listar();
       _init = true;
       _refrezcar();
+      obtenerResultado();
     });
 
     _typeControllerDireccion.text = _direccionBloc.direccionSeleccionada.alias;
@@ -137,7 +139,7 @@ class _CatalogoPageState extends State<CatalogoPage>
     _direccionBloc.listar();
     _promocionBloc.listar();
     super.initState();
-
+    obtenerResultado();
     _pushProvider.context = context;
     _pushProvider.chatsCompra.listen((ChatCompraModel chatCompraModel) {
       if (!mounted) return;
@@ -224,11 +226,21 @@ class _CatalogoPageState extends State<CatalogoPage>
         _cajeroBloc.listarEnCamino();
         break;
     }
+    obtenerResultado();
   }
 
   irAlCarrito() {
     Navigator.pushNamed(context, 'carrito');
   }
+
+
+  
+obtenerResultado() async {
+  String idUrbe = _prefs.idUrbe;
+  final response = await _catalogoProvider.controlador(idUrbe);
+  _prefs.control = response.toString();
+  return response.toString();
+} 
 
   _onselecDireccion(DireccionModel direccion) {
     Navigator.pop(context);
@@ -251,7 +263,8 @@ class _CatalogoPageState extends State<CatalogoPage>
     _typeControllerDireccion.text = direccion.alias;
     _direccionBloc.direccionSeleccionada = direccion;
     consultarDirecciones();
-    _prefs.idUrbe = idUrbe; //Guardamos la urbe en pereferencias
+    _prefs.idUrbe = idUrbe;
+    obtenerResultado(); //Guardamos la urbe en pereferencias
   }
 
   Widget createExpanPanel(BuildContext context) {
@@ -291,73 +304,92 @@ class _CatalogoPageState extends State<CatalogoPage>
     _direccion = !_direccion;
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      drawer: _prefs.clienteModel.perfil == '0' ? MenuWidget() : null,
-      appBar: AppBar(
-        leading: _prefs.clienteModel.perfil.toString() == '0'
-            ? null
-            : utils.leading(context),
-        title: Container(
-          child: TextButton(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  child: Text(
-                    'Entregar a ${_prefs.alias}',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.center,
+ @override
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: Colors.white,
+    key: _scaffoldKey,
+    drawer: _prefs.clienteModel.perfil == '0' ? MenuWidget() : null,
+    appBar: AppBar(
+      elevation: 0,
+      leading: _prefs.clienteModel.perfil.toString() == '0'
+          ? null
+          : utils.leading(context),
+      title: Container(
+        child: TextButton(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                child: Text(
+                  'Entregar a ${_prefs.alias}',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
                   ),
-                  width: 150.0,
+                  textAlign: TextAlign.center,
                 ),
-                _direccion
-                    ? Icon(Icons.location_on,
-                        color: prs.colorTextAppBar, size: 32.0)
-                    : Icon(Icons.location_on,
-                        color: prs.colorTextAppBar, size: 32.0)
-              ],
-            ),
-            onPressed: _mostrarDirecciones,
+                width: 150.0,
+              ),
+              _direccion
+                  ? Icon(Icons.location_on,
+                      color: prs.colorTextAppBar, size: 30.0)
+                  : Icon(Icons.location_on,
+                      color: prs.colorTextAppBar, size: 30.0)
+            ],
           ),
+          onPressed: _mostrarDirecciones,
         ),
-        actions: <Widget>[
-          (_prefs.isExplorar || _prefs.clienteModel.direcciones >= 1)
-              ? IconButton(
-                  padding: EdgeInsets.only(right: 30.0),
-                  icon: StreamBuilder(
-                    stream: _promocionBloc.carritoStream,
-                    builder:
-                        (BuildContext context, AsyncSnapshot<int> snapshot) {
-                      if (snapshot.hasData)
-                        return utils.iconoCount(snapshot.data);
-                      return utils.iconoCount(0);
-                    },
-                  ),
-                  onPressed: irAlCarrito,
-                )
-              : Container()
-        ],
       ),
-      body: ModalProgressHUD(
-        color: Colors.black,
-        opacity: 0.4,
-        progressIndicator: _radar
-            ? utils.progressRadar()
-            : utils.progressIndicator('Consultando...'),
-        inAsyncCall: _saving,
-        child: Center(child: Container(child: _body(), width: prs.ancho)),
-      ),
-      bottomNavigationBar: _bottomNavigationBar(),
-    );
-  }
+      actions: <Widget>[
+        (_prefs.isExplorar || _prefs.clienteModel.direcciones >= 1)
+            ? IconButton(
+                padding: EdgeInsets.only(right: 30.0),
+                icon: StreamBuilder(
+                  stream: _promocionBloc.carritoStream,
+                  builder:
+                      (BuildContext context, AsyncSnapshot<int> snapshot) {
+                    if (snapshot.hasData)
+                      return utils.iconoCount(snapshot.data);
+                    return utils.iconoCount(0);
+                  },
+                ),
+                onPressed: irAlCarrito,
+              )
+            : Container()
+      ],
+    ),
+    body: Stack(
+      children: [
+        ModalProgressHUD(
+          color: Colors.black,
+          opacity: 0.4,
+          progressIndicator: _radar
+              ? utils.progressRadar()
+              : utils.progressIndicator('Consultando...'),
+          inAsyncCall: _saving,
+          child: Center(child: Container(child: _body(), width: prs.ancho)),
+        ),
+        if (_selectedIndex == 0 && _prefs.control == '3' && _prefs.clienteModel.direcciones >= 1)//Si no hay repartidores en la zona muesta en toda la pantalla
+          Container(
+            color: Colors.white.withOpacity(0.8),
+            child: Center(
+              child: Text(
+                'Sin repartidores en tu área',
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+      ],
+    ),
+    bottomNavigationBar: _bottomNavigationBar(),
+  );
+}
 
   _bottomNavigationBar() {
     return StreamBuilder(
@@ -965,50 +997,77 @@ class _CatalogoPageState extends State<CatalogoPage>
     );
   }
 
-  _onTapCatalogo(CatalogoModel catalogoModel) {
-    FocusScope.of(context)?.requestFocus(FocusNode());
-    //Si es de tipo
-    if (catalogoModel.tipo == 1) {
-      if (catalogoModel.abiero == '1') {
+ _onTapCatalogo(CatalogoModel catalogoModel) {
+  FocusScope.of(context)?.requestFocus(FocusNode());
+  //Si es de tipo
+  if (catalogoModel.tipo == 1) {
+    if (catalogoModel.abiero == '1' && _prefs.control == '1') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MenuPage(catalogoModel, verChat: verChat),
+        ),
+      );
+    } else {
+      _enviarVER() async {
+        Navigator.of(context).pop();
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => MenuPage(catalogoModel, verChat: verChat),
           ),
         );
-      } else {
-        _enviarVER() async {
-          Navigator.of(context).pop();
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => MenuPage(catalogoModel, verChat: verChat),
-            ),
-          );
-        }
-
-        dlg.mostrar(context, catalogoModel.abiero,
-            icon: Icons.menu,
-            color: prs.colorButtonSecondary,
-            fBotonIDerecha: _enviarVER,
-            titulo: 'Local cerrado',
-            mBotonDerecha: 'VER PRODUCTOS',
-            mIzquierda: 'REGRESAR');
       }
-    } else if (catalogoModel.tipo == 2) {
-      Navigator.push(
+
+      dlg.mostrar(
         context,
-        MaterialPageRoute(
-          builder: (context) => SolicitudPage(
-            _prefs.direccionModel.lt,
-            _prefs.direccionModel.lg,
-            catalogoModel: catalogoModel,
-            pagina: config.PAGINA_SOLICITUD,
-          ),
-        ),
+        catalogoModel.abiero,
+        icon: Icons.menu,
+        color: prs.colorButtonSecondary,
+        fBotonIDerecha: _enviarVER,
+        titulo: 'No disponible',
+        mBotonDerecha: 'VER PRODUCTOS',
+        mIzquierda: 'REGRESAR',
       );
     }
+  } else if (catalogoModel.tipo == 2) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SolicitudPage(
+          _prefs.direccionModel.lt,
+          _prefs.direccionModel.lg,
+          catalogoModel: catalogoModel,
+          pagina: config.PAGINA_SOLICITUD,
+        ),
+      ),
+    );
   }
+
+  // Agregamos el nuevo if
+  else if (catalogoModel.abiero != '' && _prefs.control == '0') {
+    _enviarVER() async {
+        Navigator.of(context).pop();
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MenuPage(catalogoModel, verChat: verChat),
+          ),
+        );
+      }
+
+      dlg.mostrar(
+        context,
+        catalogoModel.abiero,
+        icon: Icons.menu,
+        color: prs.colorButtonSecondary,
+        fBotonIDerecha: _enviarVER,
+        titulo: 'Sin repartios disponibles en tu zona',
+        mBotonDerecha: 'VER PRODUCTOS',
+        mIzquierda: 'REGRESAR',
+      );
+  }
+}
 
   Widget _productosDestacados(BuildContext context) {
     return Container(
@@ -1083,34 +1142,6 @@ class _CatalogoPageState extends State<CatalogoPage>
                         enableInfiniteScroll: true,
                         autoPlayAnimationDuration: Duration(milliseconds: 800),
                         viewportFraction: 0.9,
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            _currentSlide = index;
-                          });
-                        },
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: _ofertas.map((oferta) {
-                          int index = _ofertas.indexOf(oferta);
-                          return Container(
-                            width: 8.0,
-                            height: 8.0,
-                            margin: EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 2.0),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: _currentSlide == index
-                                  ? Colors.black
-                                  : Colors.grey,
-                            ),
-                          );
-                        }).toList(),
                       ),
                     ),
                   ],

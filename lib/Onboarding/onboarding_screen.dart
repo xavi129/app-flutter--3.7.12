@@ -15,7 +15,7 @@ class OnboardingScreen extends StatefulWidget {
 
 PageController _pageController = PageController();
 int selectedPage = 0;
-
+int _tapCount = 0;
 nexPage() {
   _pageController.nextPage(
     duration: const Duration(milliseconds: 200),
@@ -23,16 +23,17 @@ nexPage() {
   );
 }
 
-jumpPage() {
+
+
+void jumpPage() {
   _pageController.jumpToPage(2);
-}
+  }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
+    return  Scaffold(
         body: SizedBox(
           width: double.infinity,
           child: Stack(
@@ -92,8 +93,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   children: [
                     InkWell(
                       onTap: () {
-                        jumpPage();
-                      },
+                        jumpPage();                 
+                  _tapCount++;
+                 if (_tapCount == 2) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => RegistrarPage(),
+                              ));
+                                     _tapCount = 0;
+                                   }},
                       child: Text(
                         'Saltar',
                         style: GoogleFonts.inter(
@@ -146,7 +155,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }

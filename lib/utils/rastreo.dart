@@ -111,12 +111,12 @@ class Rastreo {
     bool _serviceEnabled;
     PermissionStatus _permissionGranted;
     location.changeNotificationOptions(
-        channelName: "Curiosity",
+        channelName: "SQ Entregas",
         iconName: "@mipmap/ic_launcher",
         color: Colors.white,
         title: 'Rastreando',
-        subtitle: "Receptando solicitudes",
-        description: "Receptando solicitudes",
+        subtitle: "Recibiendo solicitudes",
+        description: "Recibiendo solicitudes",
         onTapBringToFront: true);
     _serviceEnabled = await location.serviceEnabled();
     if (!_serviceEnabled) {
@@ -132,7 +132,7 @@ class Rastreo {
         return false;
       }
     }
-    // await location.enableBackgroundMode(enable: true);
+    //await location.enableBackgroundMode(enable: true); localizacion en segundo plano
     await location.changeSettings(interval: 10000, distanceFilter: 20);
     OnLocationChanged(location);
     _clienteProvider.rastrear(true);

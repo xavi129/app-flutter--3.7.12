@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -26,6 +27,7 @@ import '../../widgets/en_linea_widget.dart';
 import '../../widgets/menu_widget.dart';
 import 'calificaciondespacho_page.dart';
 import 'despacho_page.dart';
+import '../../bloc/direccion_bloc.dart';
 
 //INIT MOTORIZADO
 class ComprasDespachoPage extends StatefulWidget {
@@ -41,16 +43,41 @@ class _ComprasDespachoPageState extends State<ComprasDespachoPage>
   final PreferenciasUsuario _prefs = PreferenciasUsuario();
   final PushProvider _pushProvider = PushProvider();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final DireccionBloc _direccionBloc = DireccionBloc();
+  bool _direccion = false;
   bool _saving = false;
   StreamController<bool> _cambios = StreamController<bool>.broadcast();
+  Completer<GoogleMapController> _controller = Completer();
+
+  final TextEditingController _typeControllerDireccion =
+      TextEditingController();
 
   void disposeStreams() {
     _cambios?.close();
     super.dispose();
   }
+  
+
+  void enviarsq() {
+  String idUrbe = '1'; // Aquí puedes cambiar el valor de idUrbe si lo necesitas
+  _clienteProvider.urbe(idUrbe);
+   _prefs.idUrbe = idUrbe;
+  
+ }
+
+  void enviarvg() {
+  String idUrbe = '2'; // Aquí puedes cambiar el valor de idUrbe si lo necesitas
+    _clienteProvider.urbe(idUrbe);
+    _prefs.idUrbe = idUrbe;
+   
+ }
 
   bool _init = false;
 
+funcion2 (){
+
+  _typeControllerDireccion.text = '0';
+}
   @override
   void initState() {
     _cambios.stream.listen((internet) {
@@ -154,6 +181,46 @@ class _ComprasDespachoPageState extends State<ComprasDespachoPage>
     }
   }
 
+_mostrarDirecciones() async {
+  FocusScope.of(context).requestFocus(FocusNode());
+  utils.mostrarProgress(context, barrierDismissible: false);
+  await _direccionBloc.listar();
+  Navigator.pop(context);
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+        title: Text('Selecciona una opción'),
+        actions: [
+          TextButton(
+            child: Text('Recibir de SQ', style: TextStyle(color: Colors.white)),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+            ),
+            onPressed: () {
+              enviarsq();
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            child: Text('Recibir de VG', style: TextStyle(color: Colors.white)),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+            ),
+            onPressed: () {
+              enviarvg();
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+  _direccion = !_direccion;
+}
   @override
   Widget build(BuildContext context) {
     if (_prefs.clienteModel.perfil == '0')
@@ -163,7 +230,29 @@ class _ComprasDespachoPageState extends State<ComprasDespachoPage>
       key: _scaffoldKey,
       drawer: MenuWidget(),
       appBar: AppBar(
-        title: Text(title),
+        title: Container(
+          child: TextButton(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  child: Text(
+                    'Area de entrega ${_prefs.idUrbe == '1' ? "SQ" : "VG"}',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  width: 150.0,
+                ),
+              ],
+            ),
+            onPressed: _mostrarDirecciones,
+          ),
+        ),
         actions: <Widget>[_rastrear()],
       ),
       body: ModalProgressHUD(
@@ -234,22 +323,78 @@ class _ComprasDespachoPageState extends State<ComprasDespachoPage>
           if (snapshot.data.length > 0)
             return createListView(context, snapshot);
           return Container(
-            margin: EdgeInsets.all(60.0),
             width: double.infinity,
             height: double.infinity,
-            child: Center(
-              child: Image(
+            child: !_prefs.rastrear && _selectedIndex == 0 ? _contenido() : Center( child: Image(
                   width: 300.0,
-                  image: AssetImage(_prefs.rastrear || _selectedIndex == 1
-                      ? 'assets/icon_.png'
-                      : 'assets/screen/ofline.png'),
-                  fit: BoxFit.cover),
-            ),
-          );
+                  image: AssetImage(
+                       'assets/icon_.png'), // anadir gif proximanete de repartidor
+                  fit: BoxFit.cover),),
+            );
         } else {
           return ShimmerCard();
         }
       },
+    );
+  }
+
+
+  Container _contenido() {
+    return Container(
+      child: Stack(
+        children: <Widget>[
+          GoogleMap(
+                initialCameraPosition: CameraPosition(
+                  target: LatLng(30.64701, -115.9693),
+                  zoom: 11,
+                ),
+               mapType: MapType.normal,
+                polygons: {
+                  Polygon(
+                    polygonId: PolygonId('polygon1'),
+                    points: [
+                      LatLng(30.508091, -115.903961),
+                      LatLng(30.5927626, -115.9386794),
+                      LatLng(30.590439, -115.9511074),
+                      LatLng(30.5864568, -115.9671044),
+                      LatLng(30.582909, -115.982097),
+                      LatLng(30.515627, -115.961725),
+                      LatLng(30.5105311, -115.9445301),
+                      LatLng(30.501588, -115.929655),
+                      LatLng(30.502668, -115.922264),
+                      LatLng(30.508091, -115.903961),
+                    ],
+                    fillColor: Colors.blueAccent.withOpacity(0.1),
+                    strokeColor: Colors.green,
+                    strokeWidth: 5,
+                  ),
+                  Polygon(
+                    polygonId: PolygonId('polygon2'),
+                    points: [
+                      LatLng(30.6903999, -115.9858991),
+                      LatLng(30.701029, -115.9715371),
+                      LatLng(30.705128, -115.9625336),
+                      LatLng(30.7394056, -115.9707798),
+                      LatLng(30.7752671, -115.9925131),
+                      LatLng(30.7804741, -115.9935147),
+                      LatLng(30.7843906, -115.9975204),
+                      LatLng(30.7824581, -116.0095609),
+                      LatLng(30.7790079, -116.0196902),
+                      LatLng(30.768911, -116.0299614),
+                      LatLng(30.6887733, -116.0068872),
+                      LatLng(30.6903999, -115.9858991),
+                    ],
+                    fillColor: Colors.blueAccent.withOpacity(0.1),
+                    strokeColor: Colors.green,
+                    strokeWidth: 5,
+                  ),
+                },
+                onMapCreated: (GoogleMapController controller) {
+              _controller.complete(controller);
+            },
+              ),
+              ],
+      ),
     );
   }
 
@@ -268,7 +413,7 @@ class _ComprasDespachoPageState extends State<ComprasDespachoPage>
       onRefresh: () => _comprasDespachoBloc.listarCompras(
           _selectedIndex, _dateTime.toString()),
       child: ListView.builder(
-        itemCount: 1,
+        itemCount: snapshot.data.length,
         itemBuilder: (BuildContext context, int index) {
           return ChatDespachoCard(
               despachoModel: snapshot.data[index],

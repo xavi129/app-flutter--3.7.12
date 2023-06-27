@@ -112,8 +112,9 @@ class _MyAppState extends State<MyApp> {
       },
       theme: ThemeData(
           primaryColor: prs.colorAppBar,
+          iconTheme: IconThemeData(color: Colors.white), // Set the color of the drawer button to black
           appBarTheme: AppBarTheme(
-              elevation: 0.7, centerTitle: true, color: prs.colorAppBar)),
+              elevation: 0.7, centerTitle: true, color: prs.colorAppBar),),   
     );
   }
 }

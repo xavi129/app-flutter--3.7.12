@@ -232,6 +232,14 @@ class PreferenciasUsuario {
     if (_prefs != null) _prefs.setString('idUrbe', value);
   }
 
+  get control {
+    return _prefs.getString('control') ?? '0';
+  }
+
+  set control(String value) {
+    if (_prefs != null) _prefs.setString('control', value);
+  }
+
   get alias {
     return _prefs.getString('alias') ?? '?';
   }

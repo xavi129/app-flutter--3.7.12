@@ -101,7 +101,7 @@ class SucursalcajeroCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(height: 4),
-            Text('Nombres:', style: TextStyle(fontSize: 9)),
+            Text('Nombre:', style: TextStyle(fontSize: 9)),
             Text('${sucursalcajeroModel.nombres}',
                 style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
             SizedBox(height: 4),
