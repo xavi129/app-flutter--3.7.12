@@ -240,7 +240,7 @@ class _ComprarPromoWidgetState extends State<ComprarPromoWidget> {
                 ), 
               ),
               Text(
-                'Sin repartidores',
+                'Sin repartidores disponibles',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 16.0,
